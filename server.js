@@ -18,16 +18,16 @@ app.use('/api/foods/', foodsRoute)
 app.use('/api/users/',userRoute)
 app.use('/api/orders/',ordersRoute)
 
-// if(process.env.NODE_ENV ==='production')
-// {
-//     app.use('/' , express.static('client/build'))
+if(process.env.NODE_ENV ==='production')
+{
+    app.use('/' , express.static('client/build'))
 
-//     app.get('*' , (req , res)=>{
+    app.get('*' , (req , res)=>{
 
-//         res.sendFile(path.resolve(__dirname  , 'client/build/index.html'))
+        res.sendFile(path.resolve(__dirname  , 'client/build/index.html'))
 
-//     })
-// }
+    })
+}
 
 
 app.listen(port, () => `Server running on port port 🔥`)
