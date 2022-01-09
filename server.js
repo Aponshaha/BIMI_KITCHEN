@@ -7,7 +7,7 @@ const app = express()
 const db = require('./db.js')
 app.use(express.json())
 const path = require('path')
-
+require('dotenv').config()
 const port = process.env.PORT ||8000
 
 const foodsRoute = require('./routes/foodsRoute') 
