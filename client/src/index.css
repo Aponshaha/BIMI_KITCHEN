@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Montserrat', sans-serif !important;
+  overflow-x: hidden !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav-link{
+  color: black !important;
+}
+
+.navbar-brand{
+  color: black !important;
+}
+
+h1{
+  font-size: 20px !important;
+}
+
+.flex-container{
+  display: flex !important;
+}
+
+.btn{
+  /* background-color: rgb(238,174,202) !important;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+   */
+  background-color:red !important;
+  color: white !important;
+  font-weight: bold !important;
+  box-shadow: none !important;
+}
+
+.btn_white{
+  /* background-color: rgb(238,174,202) !important;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+   */
+  background-color:white !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
+select{
+  box-shadow: none !important;
+  border-color: black !important;
+}
+
+.fa-plus{
+  color: green !important;
+  margin: 5px;
+}
+
+.fa-plus{
+  color: red !important;
+  margin: 5px;
+}
+
+.fa-trash{
+  color: red !important;
+}
+input{
+  margin-top: 10px !important;
+  box-shadow: none !important;
+}
+
+.dropdown-toggle {
+  background-color: transparent;
+  border-color: #fff;
+  border-style: solid;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  text-decoration:none;
+}
+.grad{
+  background: rgb(219,90,90);
+  background: radial-gradient(circle, rgba(219,90,90,1) 0%, rgba(29,189,40,1) 100%);  /* margin-top: 10% !important; */
+}
+.adminfunctions{
+  padding: 10px !important;
+  background-color: rgb(26, 61, 55) !important;
+  color: white !important;
+  text-align: center;
+}
+.adminfunctions li{
+  list-style-type: none !important;
+  display: inline;
+  color: white;
+  
+}
+.adminfunctions li a{
+  /*  */
+  color: white !important;
+  padding: 25px !important;
+}
+
+td , th, tr{
+  text-align: left;
+}
+
+
