@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Orderslist from "./Orderslist";
@@ -45,14 +45,14 @@ export default function Adminscreen() {
           </ul>
 
 
-          <Switch>
-              <Route path="/admin" component={Userslist} exact/>
-              <Route path="/admin/userslist" component={Userslist} exact/>
-              <Route path="/admin/orderslist" component={Orderslist} exact/>
-              <Route path="/admin/foodslist" component={Foodslist} exact/>
-              <Route path="/admin/addfood" component={Addfood} exact/>
-              <Route path="/admin/editfood/:foodid" component={Editfood} exact/>
-          </Switch>
+          <Routes>
+              <Route path="/" element={<Userslist />}/>
+              <Route path="/userslist" element={<Userslist />}/>
+              <Route path="/orderslist" element={<Orderslist />}/>
+              <Route path="/foodslist" element={<Foodslist />}/>
+              <Route path="/addfood" element={<Addfood />}/>
+              <Route path="/editfood/:foodid" element={<Editfood />}/>
+          </Routes>
         </div>
       </div>
     </div>

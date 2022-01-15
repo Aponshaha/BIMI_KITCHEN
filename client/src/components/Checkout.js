@@ -31,6 +31,7 @@ export default function Checkout({ subtotal }) {
                 token={tokenHander}
                 stripeKey='pk_test_51Jw3bUJYxHFKrvkMXZwtxtFDjtoVGiD25rUvXmIVCL9he0V0idTeGc6XSNrhOnhSzOt2KLfqagFbpY6IEmdUOk8i00N0cxvf2J'
                 currency='JPY'
+                shipping_rate='100'
             >
             <button className='btn'>Pay Now</button>
             

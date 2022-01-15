@@ -1,5 +1,5 @@
-const express = require('express');
-
+const express = require('express')
+require('dotenv').config()
 const Food = require('./models/foodModel')
 
 const app = express()
@@ -7,7 +7,6 @@ const app = express()
 const db = require('./db.js')
 app.use(express.json())
 const path = require('path')
-require('dotenv').config()
 const port = process.env.PORT ||8000
 
 const foodsRoute = require('./routes/foodsRoute') 
@@ -28,6 +27,5 @@ if(process.env.NODE_ENV ==='production')
 
     })
 }
-
 
 app.listen(port, () => `Server running on port port 🔥`)

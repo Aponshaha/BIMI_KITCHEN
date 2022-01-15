@@ -4,7 +4,10 @@ import { editFood, getFoodById } from "../actions/foodActions";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
 import Success from "../components/Success";
-export default function  Editfood ({ match }){
+import { useParams } from 'react-router-dom';
+
+export default function  Editfood (){
+    const params = useParams();
     const dispatch = useDispatch();
     const [name, setname] = useState("");
     const [smallprice, setsmallprice] = useState();
@@ -28,7 +31,7 @@ export default function  Editfood ({ match }){
         // console.log(food);
         if(food)
         {
-            if(food._id==match.params.foodid)
+            if(food._id==params.foodid)
             {
                 setname(food.name)
                 setdescription(food.description)
@@ -39,13 +42,13 @@ export default function  Editfood ({ match }){
                 setimage(food.image)
             }
             else{
-                dispatch(getFoodById(match.params.foodid))
+                dispatch(getFoodById(params.foodid))
             }
             
         }
         else{
-            dispatch(getFoodById(match.params.foodid))
-            // console.log('food not found',match.params.foodid);
+            dispatch(getFoodById(params.foodid))
+            // console.log('food not found',params.foodid);
         }
     },[food , dispatch])
 
@@ -54,7 +57,7 @@ export default function  Editfood ({ match }){
         e.preventDefault();
 
         const editedfood = {
-            _id: match.params.foodid,
+            _id: params.foodid,
             name,
             image,
             description,
@@ -74,7 +77,7 @@ export default function  Editfood ({ match }){
             <div className="text-left shadow-lg p-3 mb-5 bg-white rounded">
             <h1>Edit food</h1>
 
-            <h1>Food Id = {match.params.foodid}</h1>
+            <h1>Food Id = {params.foodid}</h1>
 
             {loading && <Loading />}
             {error && <Error error="Something went wrong" />}

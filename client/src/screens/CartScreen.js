@@ -15,8 +15,8 @@ export default function Cartscreen(){
     )
     const dispatch = useDispatch();
     return (
-        <div>
-            <div className="row justify-content-center p-2" data-aos='fade-down'>
+        <div style={{minHeight:'100%'}}>
+            <div className="row justify-content-center p-2 " data-aos='fade-down'>
                 <div className="col-md-6">
                     <h2 style={{ fontSize: '40px' }}>My Cart</h2>
 

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
-body {
+
+html,body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -8,6 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Montserrat', sans-serif !important;
   overflow-x: hidden !important;
+  min-height: 100vh !important;
+  /* display: flex;
+  flex-direction: column !important; */
 }
 
 code {
@@ -46,6 +50,15 @@ h1{
   background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
    */
   background-color:white !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.btn_blue{
+  /* background-color: rgb(238,174,202) !important;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+   */
+  background-color:rgb(28, 119, 194) !important;
   color: black !important;
   font-weight: bold !important;
 }
@@ -107,5 +120,8 @@ input{
 td , th, tr{
   text-align: left;
 }
+
+
+
 
 
