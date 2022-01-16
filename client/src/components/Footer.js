@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button'
 
 const Footer = () => {
     return (
-        <div >
-            <Card className="text-center mt-auto"   style={{fontSize:'15px', paddingTop: '5%' }}>
+        <footer  className="footer">
+            <Card className="text-center mt-auto">
                 <Card.Header variant="Dark">Featured</Card.Header>
                 <Card.Body>
                     <Card.Title>Special title treatment</Card.Title>
@@ -18,7 +18,7 @@ const Footer = () => {
                 <Card.Footer className="text-muted"><p>&copy; 2022 BIMI KITCHEN</p></Card.Footer>
                 {/* <Card.Footer className="text-muted"><p>&copy; 2022 BIMI KITCHEN</p></Card.Footer> */}
             </Card>
-        </div>
+        </footer>
     );
 }
 

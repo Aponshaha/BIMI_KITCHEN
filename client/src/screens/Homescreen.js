@@ -20,7 +20,7 @@ export default function Homescreen() {
 
   return (
     <div className="row justify-content-center">
-      <div style={{ display: 'block', width: '100%', padding: 30, marginBottom: 70 }}>
+      <div style={{ display: 'block', width: '100%', height: '100%', padding: 30 }}>
         <h4 className="justify-content-center">React-Bootstrap Carousel Component</h4>
         <Carousel>
           <Carousel.Item interval={1500}>

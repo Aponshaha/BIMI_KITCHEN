@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './index.css';
 import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import {BrowserRouter , Route, Routes } from 'react-router-dom'
@@ -15,9 +15,9 @@ import EmailVerification from './screens/EmailVerification';
 
 export default function App() {
   return (
-    <div className="App">
+    <>
+      <div className="content">
        <Navbar/>
-
        <BrowserRouter>
        <Routes>
           <Route path="/" exact element={<Homescreen />} />
@@ -27,11 +27,10 @@ export default function App() {
           <Route path='/orders' exact element={<Ordersscreen />}/>
           <Route path='/admin/*' element={<Adminscreen />}/>
           <Route path='/user/verify' element={<EmailVerification />}/>
-          </Routes>
+        </Routes>
        </BrowserRouter>
-
-       <Footer/>
-    
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }

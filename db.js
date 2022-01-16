@@ -1,6 +1,6 @@
 const Mongoose  = require("mongoose");
-
-var mongoURL = 'mongodb+srv://Saha:Apon1234566%23@cluster0.lyzsv.mongodb.net/B_Kitchen';
+require('dotenv').config()
+var mongoURL = process.env.MONGO_URL;
 
 Mongoose.connect(mongoURL, {useUnifiedTopology : true , useNewUrlparser : true} );
 
