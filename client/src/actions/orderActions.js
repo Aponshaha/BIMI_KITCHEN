@@ -13,14 +13,14 @@ export const placeOrder = (token, subtotal) => async (dispatch, getState) => {
         console.log(error);
     }
 }
-export const takeOutOrder = (subtotal) => async (dispatch, getState) => {
+export const takeOutOrder = (subtotal,user) => async (dispatch, getState) => {
     dispatch({ type: 'TAKEOUT_ORDER_REQUEST' })
-    const currentUser = getState().loginUserReducer.currentUser
+    const currentUser = user
     const cartItems = getState().cartReducer.cartItems
     try {
         const response = await axios.post('/api/orders/takeout', { subtotal, currentUser, cartItems })
         dispatch({ type: 'TAKEOUT_ORDER_SUCCESS' })
-        alert('Order Placed!!')
+        // alert('Order Placed!!')
         // console.log(response);
         window.location.href='/orders'
 

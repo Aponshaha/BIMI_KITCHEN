@@ -6,22 +6,29 @@ import Loading from "../components/Loading";
 import Food from "../components/Food";
 import Filter from "../components/Filter";
 import Carousel from 'react-bootstrap/Carousel';
+import Fab from "@mui/material/Fab";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Homescreen() {
   const dispatch = useDispatch();
 
   const foodsstate = useSelector((state) => state.getAllFoodsReducer);
-
+  const cartstate = useSelector((state) => state.cartReducer);
   const { foods, error, loading } = foodsstate;
+
+  function cart(params) {
+    window.location.href = '/cart'
+  }
 
   useEffect(() => {
     dispatch(getAllFoods());
   }, []);
 
   return (
+
     <div className="row justify-content-center">
-      <div style={{ display: 'block', width: '100%', height: '100%', padding: 30 }}>
-        <h4 className="justify-content-center">React-Bootstrap Carousel Component</h4>
+      <div style={{ display: 'block', width: '100%', height: '100%', marginBottom: 50 }}>
+        {/* <h4 className="justify-content-center">React-Bootstrap Carousel Component</h4> */}
         <Carousel>
           <Carousel.Item interval={1500}>
             <img
@@ -48,7 +55,7 @@ export default function Homescreen() {
         </Carousel>
       </div>
       <Filter />
-      <div className="row justify-content-center">
+      <div className="row justify-content-center " style={{marginTop: 50}}>
         {loading ? (
           <Loading />
         ) : error ? (
@@ -65,7 +72,19 @@ export default function Homescreen() {
           })
         )}
       </div>
-      
+      <Fab
+        sx={{
+          position: "fixed",
+          bottom: (theme) => theme.spacing(2),
+          right: (theme) => theme.spacing(2),
+          // visibility: 'hidden'
+
+        }}
+        color="primary"
+      >
+        <ShoppingCartIcon onClick={cart} /> {cartstate.cartItems.length}
+      </Fab>
     </div>
+
   );
 };

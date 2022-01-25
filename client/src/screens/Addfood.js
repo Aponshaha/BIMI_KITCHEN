@@ -70,7 +70,6 @@ const Addfood = () => {
                     placeholder="name"
                     value={name}
                     onChange={(e) => {
-
                         setname(e.target.value);
                     }}
                 />
