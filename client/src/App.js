@@ -3,7 +3,7 @@ import './index.css';
 import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import {BrowserRouter , Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar';
+import NavbarComponent from './components/Navbar';
 import Homescreen from './screens/Homescreen';
 import Cartscreen from './screens/CartScreen'
 import Registerscreen from './screens/Registerscreen';
@@ -12,12 +12,17 @@ import Ordersscreen from './screens/Orderscreen';
 import Adminscreen from './screens/Adminscreen';
 import Footer from './components/Footer';
 import EmailVerification from './screens/EmailVerification';
+import StripeCheckout from './components/Stripecheckout.js';
+import CheckoutForm from './components/CheckoutForm';
+
+
+
 
 export default function App() {
   return (
     <>
       <div className="content">
-       <Navbar/>
+       <NavbarComponent/>
        <BrowserRouter>
        <Routes>
           <Route path="/" exact element={<Homescreen />} />
@@ -27,9 +32,11 @@ export default function App() {
           <Route path='/orders' exact element={<Ordersscreen />}/>
           <Route path='/admin/*' element={<Adminscreen />}/>
           <Route path='/user/verify' element={<EmailVerification />}/>
+          <Route path="/stripe" exact element={<StripeCheckout />}/>
         </Routes>
        </BrowserRouter>
       </div>
+      
       <Footer />
     </>
   );

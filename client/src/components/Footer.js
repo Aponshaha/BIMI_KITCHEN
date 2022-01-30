@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 const Footer = () => {
     return (
         <footer className="footer" >
-            <Card className="text-center mt-auto bg-dark text-white" border="light">
+            <Card className="text-center mt-auto footer ">
                 <Card.Header variant="Dark">Featured</Card.Header>
                 <Card.Body>
                     <Card.Title>Special title treatment</Card.Title>
@@ -15,7 +15,7 @@ const Footer = () => {
                     <Button className="btn_grad">BIMI KITCHEN</Button>
 
                 </Card.Body>
-                <Card.Footer className="text-muted"><p>&copy; 2022 BIMI KITCHEN</p></Card.Footer>
+                <Card.Footer style={{color: 'white'}} ><p>&copy; 2022 BIMI KITCHEN</p></Card.Footer>
                 {/* <Card.Footer className="text-muted"><p>&copy; 2022 BIMI KITCHEN</p></Card.Footer> */}
             </Card>
         </footer>

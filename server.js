@@ -6,6 +6,7 @@ const app = express()
 
 const db = require('./db.js')
 app.use(express.json())
+app.use(express.static("public"));
 const path = require('path')
 const port = process.env.PORT ||8000
 

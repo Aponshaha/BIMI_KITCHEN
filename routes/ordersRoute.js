@@ -107,10 +107,70 @@ router.post("/deliverorder", async(req, res) => {
   
 });
 
+router.post("/create-payment-intent", async (req, res) => {
+    const items  = req.body;
+    var subtotal = items.cartItems.reduce((x, item) =>
+        x + item.price, 0
+    )
+    // console.log(subtotal);
+    // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: subtotal,
+        currency: 'jpy',
+        automatic_payment_methods: {
+            enabled: true,
+        },
+        billing_address_collection: 'auto',
+        shipping_address_collection: {
+            allowed_countries: ['US', 'CA', 'LV'],
+        }
+    });
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  });
 
+  
+router.post("/create-checkout-sessions", async (req, res) => {
+    const items  = req.body;
+    var subtotal = items.cartItems.reduce((x, item) =>
+        x + item.price, 0
+    )
+    // console.log(subtotal);
+    // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.checkout.sessions.create({
+        submit_type: 'donate',
+        
+        /*
+        Collect billing and shipping details
+        Use billing_address_collection and shipping_address_collection to collect your customer’s address. 
+        shipping_address_collection requires a list of allowed_countries. Checkout displays the list of allowed
+        countries in a dropdown on the page.
+        */
+        line_items: req.body.items,    
+        billing_address_collection: 'auto',
+        shipping_address_collection: {
+            allowed_countries: ['US', 'CA', 'LV'],
+        },
+        payment_method_types: [
+            'card',
+        ],
+        mode: 'payment',
 
+        //* Supply success and cancel URLs
+        //* Specify URLs for success and cancel pages—make sure they are publicly accessible so Stripe can redirect 
+        //* customers to them. You can also handle both the success and canceled states with the same URL.
+        success_url: `${YOUR_DOMAIN}/stripe/stripe-success.html`, //! Change
+        cancel_url: `${YOUR_DOMAIN}/stripe/stripe-cancel.html`, //! Change
+        //* Activate Stripe Tax to monitor your tax obligations, automatically collect tax, and access the reports you need to file returns.
+        //* automatic_tax: {enabled: true},
+        
 
-
+    });
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  });
 
 module.exports = router
 

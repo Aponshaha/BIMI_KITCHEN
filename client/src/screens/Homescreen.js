@@ -8,10 +8,22 @@ import Filter from "../components/Filter";
 import Carousel from 'react-bootstrap/Carousel';
 import Fab from "@mui/material/Fab";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+import Menu from "../components/Menu";
+
+
+// Import any actions required for transformations.
+import {fill} from "@cloudinary/url-gen/actions/resize";
 
 export default function Homescreen() {
   const dispatch = useDispatch();
-
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dcq1c5yys'
+    }
+  });
+  // const sliderimg_1 = cld.image('docs/models'); 
   const foodsstate = useSelector((state) => state.getAllFoodsReducer);
   const cartstate = useSelector((state) => state.cartReducer);
   const { foods, error, loading } = foodsstate;
@@ -27,29 +39,29 @@ export default function Homescreen() {
   return (
 
     <div className="row justify-content-center">
-      <div style={{ display: 'block', width: '100%', height: '100%', marginBottom: 50 }}>
+      <div style={{ display: 'block', width: '100%', height: '100%', marginBottom: 50, marginTop: 2}}>
         {/* <h4 className="justify-content-center">React-Bootstrap Carousel Component</h4> */}
         <Carousel>
-          <Carousel.Item interval={1500}>
+          <Carousel.Item interval={2500}>
             <img
-              className="d-block w-100"
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20210425122739/2-300x115.png"
+              className="w-100"
+              src="https://res.cloudinary.com/dcq1c5yys/image/upload/ar_16:9,c_fill,e_sharpen,g_auto,h_556,w_978/v1643402943/2548748_pgxvap.jpg"
               alt="Image One"
             />
             <Carousel.Caption>
-              <h3>Label for first slide</h3>
-              <p>Sample Text for Image One</p>
+              <h1>BIMI KITCHEN</h1>
+              <p>Bangladeshi Home Style Food with Japanese Quality!!!</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item interval={500}>
             <img
-              className="d-block w-100"
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20210425122716/1-300x115.png"
+              className="w-100"
+              src="https://res.cloudinary.com/dcq1c5yys/image/upload/c_scale,ar_16:9,c_fill,g_auto,e_sharpen/v1633979156/samples/food/spices.jpg"
               alt="Image Two"
             />
             <Carousel.Caption>
-              <h3>Label for second slide</h3>
-              <p>Sample Text for Image Two</p>
+              <h1>Get your food Delivered in Time</h1>
+              <p>Order from home</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
@@ -72,6 +84,7 @@ export default function Homescreen() {
           })
         )}
       </div>
+      <Menu />
       <Fab
         sx={{
           position: "fixed",
@@ -85,6 +98,7 @@ export default function Homescreen() {
         <ShoppingCartIcon onClick={cart} /> {cartstate.cartItems.length}
       </Fab>
     </div>
+
 
   );
 };
