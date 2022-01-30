@@ -7,6 +7,9 @@ import Carousel from 'react-bootstrap/Carousel';
 const Menu = () => {
     return (
         <div className="p-3 m-5 rounded w-90">
+            <h1 style={{ fontWeight: 'bold' }} className="row justify-content-center">
+                Weekly Spacial Set Menus
+            </h1>
             <Carousel>
               <Carousel.Item interval={2500}>
                 <CardGroup>

@@ -45,7 +45,7 @@ export default function Homescreen() {
           <Carousel.Item interval={2500}>
             <img
               className="w-100"
-              src="https://res.cloudinary.com/dcq1c5yys/image/upload/ar_16:9,c_fill,e_sharpen,g_auto,h_556,w_978/v1643402943/2548748_pgxvap.jpg"
+              src="https://res-console.cloudinary.com/dcq1c5yys/thumbnails/transform/v1/image/upload//v1643546776/SG9tZVNsaWRlcjE=/drilldown"
               alt="Image One"
             />
             <Carousel.Caption>
@@ -56,7 +56,7 @@ export default function Homescreen() {
           <Carousel.Item interval={500}>
             <img
               className="w-100"
-              src="https://res.cloudinary.com/dcq1c5yys/image/upload/c_scale,ar_16:9,c_fill,g_auto,e_sharpen/v1633979156/samples/food/spices.jpg"
+              src="https://res-console.cloudinary.com/dcq1c5yys/thumbnails/transform/v1/image/upload//v1643546621/SG9tZVNsaWRlcjI=/drilldown"
               alt="Image Two"
             />
             <Carousel.Caption>
