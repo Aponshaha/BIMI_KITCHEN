@@ -55,7 +55,7 @@ export default function Cartscreen() {
                             <Takeout subtotal={subtotal} />
                         </Tab>
                         <Tab eventKey="profile" title="Delivery">
-                            <Checkout subtotal={subtotal + 100} />
+                            <Checkout subtotal={subtotal} />
                         </Tab>
                     </Tabs>
                 </div>
