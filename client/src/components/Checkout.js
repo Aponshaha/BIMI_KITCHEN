@@ -49,12 +49,14 @@ export default function Checkout({ subtotal }) {
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>{subtotal} 円</td>
-                            <td>100 円</td>
-                            <td>{subtotal + 100} 円</td>
+                            
+                            <td>{subtotal == 0 ? '' : subtotal + '円'} </td>
+                            <td>{subtotal == 0 ? '' : 100 + '円'} </td>
+                            <td>{subtotal == 0 ? '' : subtotal+100 + '円'} </td>
                         </tr>
                     </tbody>
                 </Table>
+                
                 <button className='btn'>Place Order</button>
                 <button className='btn_blue btn m-3 '>Cash on Delivery</button>
             </StripeCheckout>
