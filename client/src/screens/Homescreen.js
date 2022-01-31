@@ -45,7 +45,7 @@ export default function Homescreen() {
           <Carousel.Item interval={2500}>
             <img
               className="w-100"
-              src="https://res-console.cloudinary.com/dcq1c5yys/thumbnails/transform/v1/image/upload//v1643546776/SG9tZVNsaWRlcjE=/drilldown"
+              src="https://res.cloudinary.com/dcq1c5yys/image/upload/v1643546776/HomeSlider1.jpg"
               alt="Image One"
             />
             <Carousel.Caption>
@@ -56,7 +56,7 @@ export default function Homescreen() {
           <Carousel.Item interval={500}>
             <img
               className="w-100"
-              src="https://res-console.cloudinary.com/dcq1c5yys/thumbnails/transform/v1/image/upload//v1643546621/SG9tZVNsaWRlcjI=/drilldown"
+              src="https://res.cloudinary.com/dcq1c5yys/image/upload/v1643546621/HomeSlider2.jpg"
               alt="Image Two"
             />
             <Carousel.Caption>
