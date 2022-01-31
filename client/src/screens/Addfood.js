@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
+import {Image, Video, Transformation} from 'cloudinary-react';
 import { addFood } from "../actions/foodActions";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
