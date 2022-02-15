@@ -13,7 +13,7 @@ export default function Food({ food }) {
   AOS.init({})
 
   const [quantity, setquantity] = useState(1);
-  const [varient, setvarient] = useState("small");
+  const [varient, setvarient] = useState("medium");
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState();
 
@@ -53,7 +53,11 @@ export default function Food({ food }) {
             }}
           >
             {food.varients.map((varients) => {
-              return <option value={varients}>{varients}</option>;
+              var options = []
+              if (food.prices[0][varients]) {
+                options.push(varients)
+              }
+              return <option value={options}>{options}</option>;
             })}
           </select>
         </div>
@@ -75,7 +79,9 @@ export default function Food({ food }) {
       <div className="flex-container">
         <div className="m-2 w-100">
           <h1 className="mt-1">
-            price: {food.prices[0][varient] * quantity}¥
+            {/* price: {food.prices[0][varient] * quantity}円 */}
+            price: {food.prices[0]['medium'] * quantity}円
+
           </h1>
         </div>
         <div className="m-1 w-100" >
