@@ -47,10 +47,22 @@ export default function Navbar() {
                 <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-toggle m-4 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {currentUser.name}
                 </a>
-                <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                {currentUser.name === 'admin' ? (
+                  <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
+                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/admin"><li>ADMIN</li></a>
+                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
+                </div>
+                ):(
+                  <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
                 </div>
+                )}
+                {/* <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
+                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
+                </div> */}
               </div>
             ) : (
               <li className="dropdown m-2">
