@@ -4,7 +4,7 @@ import Loading from "../components/Loading";
 import Success from '../components/Success';
 import Card from 'react-bootstrap/Card'
 import { useSearchParams } from "react-router-dom";
-
+import Button from 'react-bootstrap/Button'
 export default function EmailVerification() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
@@ -40,8 +40,10 @@ export default function EmailVerification() {
                     <Card.Body>
                         <Card.Title>Wellcome to Bimi Kitchen</Card.Title>
                         <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
+                            <p>Please login to Bimi Kitchen</p>
+                            <Button href="/login" variant="secondary" size="lg">
+                                Link
+                            </Button>
                         </Card.Text>
                     </Card.Body>
                 ) : (

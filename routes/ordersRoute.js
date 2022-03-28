@@ -3,6 +3,8 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const stripe = require("stripe")("sk_test_51Jw3bUJYxHFKrvkMLNqRY6A239LQRhEaAEDVYpbegu861Y2FZ32vTyw1kd21k0Mnm5ZQBuihelHGHjEhxnC8GEO900tsejH7WD")
 const Order = require('../models/orderModel')
+const sendEmail = require('../services/emailService');
+
 router.post("/placeorder", async(req, res) => {
   const {token , subtotal , currentUser , cartItems} = req.body
   try {
@@ -35,10 +37,35 @@ router.post("/placeorder", async(req, res) => {
               },
               transactionId : payment.source.id
           })
-          
-          neworder.save()
 
-          res.send('Order placed successfully')
+          const options = {
+            to: `mailme2apon.saha@gmail.com`,
+            from: `"Bimi Kitchen" devapon77@gmail.com`,
+            subject: "Order Placed ",
+            template: "order-details",
+            templateVars: {
+              username : neworder.name ? neworder.name : 'abc' ,
+              email :  customer.email ,
+              subtotal: neworder.orderAmount,
+              transactionId: customer.source? customer.source : token.id,
+              date: new Date()
+            //   userid : currentUser._id ,
+            //   orderItems : cartItems , 
+            //   orderAmount : subtotal,
+            //   shippingAddress : {
+            //       street : token.card.address_line1,
+            //       city : token.card.address_city,
+            //       country : token.card.address_country,
+            //       pincode : token.card.address_zip
+            //   },
+            //   transactionId : payment.source.id
+            },
+        };
+          
+          await sendEmail(options);
+          await neworder.save();
+        
+          res.send('Order placed successfully');
       }
       else{
           res.send('Payment failed')
