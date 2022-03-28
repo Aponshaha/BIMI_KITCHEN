@@ -35,7 +35,7 @@ const Registerscreen = () => {
                 <div className="col-md-5 mt-5 shadow p-3 mb-5 bg-white rounded">
                     
                     {loading && (<Loading />)}
-                    {success && (<Success success='User register successfully' />)}
+                    {success && (<Success success='Thank you for registering to BIMI KITCHEN. Please, check your EMAIL to verify your account!' />)}
                     {error && (<Error error='Email already registered'/>)}
 
 
