@@ -13,10 +13,12 @@ const port = process.env.PORT ||8000
 const foodsRoute = require('./routes/foodsRoute') 
 const userRoute = require('./routes/userRoute')
 const ordersRoute = require('./routes/ordersRoute')
+const stripeRoute = require('./routes/stripe')
 
 app.use('/api/foods/', foodsRoute)
 app.use('/api/users/',userRoute)
 app.use('/api/orders/',ordersRoute)
+app.use('/api/stripe/',stripeRoute)
 
 if(process.env.NODE_ENV ==='production')
 {
@@ -28,5 +30,6 @@ if(process.env.NODE_ENV ==='production')
 
     })
 }
+
 
 app.listen(port, () => `Server running on port port 🔥`)

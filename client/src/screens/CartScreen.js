@@ -2,11 +2,14 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
-import Table from 'react-bootstrap/Table'
+import Box from '@mui/material/Box';
 import { addToCart } from '../actions/cartActions';
 import { deleteFromCart } from '../actions/cartActions'
 import Checkout from '../components/Checkout';
 import Takeout from '../components/Takeout';
+import PayButton from '../components/PayButton';
+
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -20,6 +23,7 @@ export default function Cartscreen() {
     )
     const dispatch = useDispatch();
     return (
+        
         <div>
             <div className="row justify-content-center p-2 " data-aos='fade-down'>
                 <div className="col-md-6">
@@ -45,7 +49,7 @@ export default function Cartscreen() {
                     }
                 </div>
 
-                <div className="col-md-4 text-left tabs font-size-small ">
+                {/* <div className="col-md-4 text-left tabs font-size-small ">
                     <Tabs
                         defaultActiveKey="takeout"
                         id="noanim-tab-example"
@@ -53,13 +57,16 @@ export default function Cartscreen() {
                     >
                         <Tab eventKey="takeout" title="Take Out">
                             <Takeout subtotal={subtotal} />
+                            
                         </Tab>
                         <Tab eventKey="profile" title="Delivery">
                             <Checkout subtotal={subtotal} />
                         </Tab>
                     </Tabs>
-                </div>
+                </div> */}
+                <PayButton items = {cartItems}/>
             </div>
+            
         </div>
     );
 }
