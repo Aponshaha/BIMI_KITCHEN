@@ -34,7 +34,7 @@ module.exports = async function sendMail({ template: templateName, templateVars,
 
     try {
         const info = await transporter.sendMail(options);
-        //console.log(`Message sent: ${info.messageId}`);
+        // console.log(`Message sent: ${info.messageId}`);
     } catch (error) {
         console.log(`Message seding failed: ${error}`);
     }

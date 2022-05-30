@@ -33,7 +33,7 @@ export default function App() {
           <Route path='/admin/*' element={<Adminscreen />}/>
           <Route path='/user/verify' element={<EmailVerification />}/>
           <Route path="/payment" exact element={<CheckoutForm />}/>
-          <Route path="/Checkout_success" exact element={<CheckoutSuccess />}/>
+          <Route path="/CheckoutSuccess" exact element={<CheckoutSuccess />}/>
           <Route path="/CheckoutCancelled" exact element={<CheckoutCancelled />}/>
 
         </Routes>

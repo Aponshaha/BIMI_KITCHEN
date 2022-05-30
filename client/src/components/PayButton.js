@@ -1,11 +1,17 @@
 import axios, { Axios } from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const Paybutton = (items) =>{
+    const userstate = useSelector((state) => state.loginUserReducer);
+    const { currentUser } = userstate;
+
+    console.log(currentUser);
+
     const handleCheckout = () => {
         axios.post(`/api/stripe/create-checkout-session`,{
             items,
-            // userId: user._id
+            userId: currentUser._id ? currentUser._id : Math.random().toString(36).substring(2,7)
         })
         .then((res)=>{
             if (res.data.url) {

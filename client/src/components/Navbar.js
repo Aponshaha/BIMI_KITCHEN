@@ -47,7 +47,7 @@ export default function Navbar() {
                 <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-toggle m-4 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {currentUser.name}
                 </a>
-                {currentUser.name === 'admin' ? (
+                {currentUser.isAdmin === true ? (
                   <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/admin"><li>ADMIN</li></a>
