@@ -33,7 +33,7 @@ export default function Navbar() {
               </a>
             </li>
             <li className="dropdown m-2">
-              <a className="nav-link  m-2" href="/#">
+              <a className="nav-link  m-2" href="/about">
                 About
               </a>
             </li>

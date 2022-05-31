@@ -12,6 +12,9 @@ export const addToCart = ( food, quantity, varient) => (dispatch, getState) => {
     if (cartItem.quantity>10) {
         alert("You can't add more than 10")
     }
+    else if(cartItem.quantity === 0){
+        alert("Invalid Request")
+    }
     else{
         if (cartItem.quantity < 0){
             dispatch({type:'DELETE_FROM_CART', payload:food})

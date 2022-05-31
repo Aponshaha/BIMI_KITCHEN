@@ -82,14 +82,15 @@ router.post("/placeorder", async(req, res) => {
 });
 
 router.post("/takeout", async(req, res) => {
-  const {subtotal , currentUser , cartItems} = req.body
+  const {subtotal , name,email,phone, cartItems,userId} = req.body
   try {
     const neworder = new Order({
-        name : currentUser.name,
-        email : currentUser.email ,
-        userid : currentUser._id ,
+        name : name,
+        email : email ,
+        userid : userId ,
         orderItems : cartItems , 
         orderAmount : subtotal,
+        phone : phone,
         isTakeout: true
     })
     await neworder.save()

@@ -8,6 +8,7 @@ import { deleteFromCart } from '../actions/cartActions'
 import Checkout from '../components/Checkout';
 import Takeout from '../components/Takeout';
 import PayButton from '../components/PayButton';
+import TakeButton from '../components/TakeButton';
 
 
 
@@ -21,12 +22,18 @@ export default function Cartscreen() {
     var subtotal = cartItems.reduce((x, item) =>
         x + item.price, 0
     )
+    console.log('cartItems',cartItems.length)
     const dispatch = useDispatch();
     return (
         
         <div>
             <div className="row justify-content-center p-2 " data-aos='fade-down'>
+               <div className="col-md-1">
+                </div>
+
                 <div className="col-md-6">
+                {cartItems.length>0 ? 
+                <>
                     <h2 style={{ fontSize: '40px' }}>My Cart</h2>
                     {cartItems.map(item => {
                         return <div className="flex-container">
@@ -47,6 +54,13 @@ export default function Cartscreen() {
                         </div>
                     })
                     }
+                </>
+                : 
+                <>
+                <h2 style={{ fontSize: '40px' }}>Your Cart in Empty!</h2>
+                <h2 style={{ fontSize: '25px' }}>Add items to it now.</h2>
+                </>
+            }
                 </div>
 
                 {/* <div className="col-md-4 text-left tabs font-size-small ">
@@ -64,7 +78,15 @@ export default function Cartscreen() {
                         </Tab>
                     </Tabs>
                 </div> */}
-                <PayButton items = {cartItems}/>
+                      {cartItems.length>0 && 
+                                      <div className="col-md-5">
+                                      <PayButton items = {cartItems}/>
+                                      <br />
+                                      <TakeButton items = {cartItems}/>
+                                      </div>
+                      
+                      }
+
             </div>
             
         </div>
