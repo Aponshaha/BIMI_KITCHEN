@@ -1,8 +1,10 @@
 const express = require('express')
 require('dotenv').config()
 const Food = require('./models/foodModel')
+var cors = require('cors')
 
 const app = express()
+app.use(cors())
 
 const db = require('./db.js')
 app.use(express.json())
@@ -14,6 +16,7 @@ const foodsRoute = require('./routes/foodsRoute')
 const userRoute = require('./routes/userRoute')
 const ordersRoute = require('./routes/ordersRoute')
 const stripeRoute = require('./routes/stripe')
+
 
 app.use('/api/foods/', foodsRoute)
 app.use('/api/users/',userRoute)

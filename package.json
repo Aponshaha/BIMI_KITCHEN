@@ -20,7 +20,11 @@
   "author": "Apon Saha",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.20.0",
+=======
+    "cors": "^2.8.5",
+>>>>>>> f624254f227b776fc16bb37ef32e211f83df1498
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",

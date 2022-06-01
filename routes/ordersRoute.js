@@ -1,5 +1,11 @@
 const express = require("express");
 const router = express.Router();
+
+// router.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
 const { v4: uuidv4 } = require('uuid');
 const stripe = require("stripe")("sk_test_51Jw3bUJYxHFKrvkMLNqRY6A239LQRhEaAEDVYpbegu861Y2FZ32vTyw1kd21k0Mnm5ZQBuihelHGHjEhxnC8GEO900tsejH7WD")
 const Order = require('../models/orderModel')
@@ -46,7 +52,7 @@ router.post("/placeorder", async(req, res) => {
               transactionId : payment.source.id
           })
 
-          const options = {
+        const options = {
             to: `mailme2apon.saha@gmail.com`,
             from: `"Bimi Kitchen" devapon77@gmail.com`,
             subject: "Order Placed ",
@@ -56,17 +62,7 @@ router.post("/placeorder", async(req, res) => {
               email :  customer.email ,
               subtotal: neworder.orderAmount,
               transactionId: customer.source? customer.source : token.id,
-              date: new Date()
-            //   userid : currentUser._id ,
-            //   orderItems : cartItems , 
-            //   orderAmount : subtotal,
-            //   shippingAddress : {
-            //       street : token.card.address_line1,
-            //       city : token.card.address_city,
-            //       country : token.card.address_country,
-            //       pincode : token.card.address_zip
-            //   },
-            //   transactionId : payment.source.id
+              date: new Date(),
             },
         };
           
@@ -137,52 +133,11 @@ router.post("/deliverorder", async(req, res) => {
     } catch (error) {
 
         return res.status(400).json({ message: error});
-        
+ 
     }
   
 });
 
-
-router.post("/create-checkout-sessions", async (req, res) => {
-    const items  = req.body;
-    var subtotal = items.cartItems.reduce((x, item) =>
-        x + item.price, 0
-    )
-    // console.log(subtotal);
-    // Create a PaymentIntent with the order amount and currency
-    const paymentIntent = await stripe.checkout.sessions.create({
-        submit_type: 'donate',
-        
-        /*
-        Collect billing and shipping details
-        Use billing_address_collection and shipping_address_collection to collect your customer’s address. 
-        shipping_address_collection requires a list of allowed_countries. Checkout displays the list of allowed
-        countries in a dropdown on the page.
-        */
-        line_items: req.body.items,    
-        billing_address_collection: 'auto',
-        shipping_address_collection: {
-            allowed_countries: ['US', 'CA', 'LV'],
-        },
-        payment_method_types: [
-            'card',
-        ],
-        mode: 'payment',
-
-        //* Supply success and cancel URLs
-        //* Specify URLs for success and cancel pages—make sure they are publicly accessible so Stripe can redirect 
-        //* customers to them. You can also handle both the success and canceled states with the same URL.
-        success_url: `${YOUR_DOMAIN}/stripe/stripe-success.html`, //! Change
-        cancel_url: `${YOUR_DOMAIN}/stripe/stripe-cancel.html`, //! Change
-        //* Activate Stripe Tax to monitor your tax obligations, automatically collect tax, and access the reports you need to file returns.
-        //* automatic_tax: {enabled: true},
-        
-
-    });
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-  });
 
 module.exports = router
 
