@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useSelector } from "react-redux";
 import { Modal,Form,Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
@@ -15,9 +15,19 @@ const TakeButton = (items) =>{
     const [umail, setEmail] = useState('')
     const [uphone, setPhone] = useState('')
     const [error, setError] = useState(false);
+    const [price, setPrice] = useState(0);
 
     const handleClose = () => setShow(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+      let price = 0;
+      items.items.forEach((item) => {
+        price += item.price;
+      });
+      setPrice(price)
+    }, [items]);
+
     const handleCheckout = () => {
         setShow(true)
     };
@@ -32,13 +42,13 @@ const TakeButton = (items) =>{
     const handleConfirm = () => {
         if(validateEmail(umail) !== null)
         {
-            console.log('TakeButton email',validateEmail(umail))
             axios.post(`/api/orders/takeout`,{
-                cartItems : items,
+                cartItems : items.items,
                 userId:  currentUser._id ? currentUser._id : Math.random().toString(36).substring(2,7),
                 name : userstate.name ? userstate.name : uname ,
                 email : userstate.email ? userstate.email : umail,
-                phone : uphone    
+                phone : uphone,
+                subtotal:price   
             })
             .then((res)=>{
                 if(res.status === 200){
