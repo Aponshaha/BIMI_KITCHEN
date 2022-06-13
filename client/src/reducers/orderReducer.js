@@ -61,7 +61,9 @@ export const getAllOrdersReducer=(state={orders : []} , action)=>{
         }
         case 'GET_ALLORDERS_SUCCESS' : return{
             loading : false ,
-            orders : action.payload
+            orders : action.payload.data,
+            currentPage : action.payload.currentPage,
+            numberOfPages : action.payload.numberOfPages
         }
         case 'GET_ALLORDERS_FAILED' : return{
             error : action.payload ,

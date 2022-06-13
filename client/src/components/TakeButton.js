@@ -40,13 +40,13 @@ const TakeButton = (items) =>{
       };
       
     const handleConfirm = () => {
-        if(validateEmail(umail) !== null)
+        if(validateEmail(umail) !== null && uname!== '' && uphone!== '')
         {
             axios.post(`/api/orders/takeout`,{
                 cartItems : items.items,
                 userId:  currentUser._id ? currentUser._id : Math.random().toString(36).substring(2,7),
-                name : userstate.name ? userstate.name : uname ,
-                email : userstate.email ? userstate.email : umail,
+                name :  uname ,
+                email :  umail,
                 phone : uphone,
                 subtotal:price   
             })
@@ -92,7 +92,6 @@ const TakeButton = (items) =>{
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
               />
-             {error && <Form.Label style={{color:'red'}}>Please enter valid Email</Form.Label>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Phone Number</Form.Label>
@@ -103,6 +102,7 @@ const TakeButton = (items) =>{
                 onChange={(e) => setPhone(e.target.value)}
               />
             </Form.Group>
+            {error && <Form.Label style={{color:'red'}}>Please provide valid Name,Email and Phone number</Form.Label>}
 
           </Form>
         </Modal.Body>
