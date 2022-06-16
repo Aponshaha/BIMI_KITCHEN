@@ -21,7 +21,7 @@ export default function Filter() {
                         </select>
                     </div> */}
                     <div className="col-md-3 w-100"> 
-                        <button className='btn w-100 mt-2' onClick={()=>{dispatch(filterFoods(searchkey , category))}}>SEARCH</button>
+                        <button style={{height: 'auto',marginTop:'10px'}} className='btn w-100' onClick={()=>{dispatch(filterFoods(searchkey , category))}}>SEARCH</button>
                     </div>
 
             </div>

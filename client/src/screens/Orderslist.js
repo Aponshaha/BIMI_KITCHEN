@@ -33,6 +33,7 @@ const handleDeliver = async(orderid) => {
   if(response.status=== 200){
     dispatch(getAllOrders(pageNumber));
     setToastShow(true)
+    setShow(false)
   }
 };
 const changePage = (number) => {
@@ -133,8 +134,8 @@ const gotoNext = () => {
    <Button variant="secondary" onClick={handleClose}>
      Close
    </Button>
-   <Button variant="primary" onClick={handleClose}>
-     Deliver
+   <Button variant="primary" onClick={() => handleDeliver(orderDetails?._id)}>
+     Deliver 
    </Button>
  </Modal.Footer>
 </Modal>

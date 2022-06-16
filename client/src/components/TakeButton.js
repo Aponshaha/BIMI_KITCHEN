@@ -17,7 +17,10 @@ const TakeButton = (items) =>{
     const [error, setError] = useState(false);
     const [price, setPrice] = useState(0);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false)
+      setError(false)
+    };
     const navigate = useNavigate();
 
     useEffect(() => {

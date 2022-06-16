@@ -85,7 +85,7 @@ export default function Food({ food }) {
           </h1>
         </div>
         <div className="m-1 w-100" >
-          <button style={{height:'40px'}} className="btn m-0 w-100" onClick={addtocart}> ADD TO CART</button>
+          <button style={{height: 'auto'}} className="btn m-0 w-100" onClick={addtocart}> ADD TO CART</button>
         </div>
       </div>
       {alert && (<Success success='Added to Cart' />)}
