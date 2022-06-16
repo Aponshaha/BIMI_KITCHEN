@@ -17,6 +17,7 @@ import StripeCheckout from './components/Stripecheckout.js';
 import CheckoutForm from './components/CheckoutForm';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import CheckoutCancelled from './components/CheckoutCancelled';
+import AboutScreen from './screens/AboutScreen'
 
 export default function App() {
   return (
@@ -35,7 +36,7 @@ export default function App() {
           <Route path="/payment" exact element={<CheckoutForm />}/>
           <Route path="/CheckoutSuccess" exact element={<CheckoutSuccess />}/>
           <Route path="/CheckoutCancelled" exact element={<CheckoutCancelled />}/>
-
+          <Route path="/about" exact element={<AboutScreen />}/>
         </Routes>
        </BrowserRouter>
       </div>

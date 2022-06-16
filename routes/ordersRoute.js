@@ -82,14 +82,15 @@ router.post("/placeorder", async(req, res) => {
 });
 
 router.post("/takeout", async(req, res) => {
-  const {subtotal , currentUser , cartItems} = req.body
+  const {subtotal , name,email,phone, cartItems,userId} = req.body
   try {
     const neworder = new Order({
-        name : currentUser.name,
-        email : currentUser.email ,
-        userid : currentUser._id ,
+        name : name,
+        email : email ,
+        userid : userId ,
         orderItems : cartItems , 
         orderAmount : subtotal,
+        phone : phone,
         isTakeout: true
     })
     await neworder.save()
@@ -112,10 +113,13 @@ router.post("/getuserorders", async(req, res) => {
 });
 
 router.get("/getallorders", async(req, res) => {
-
      try {
-         const orders = await Order.find({}).sort({_id : -1})
-         res.send(orders)
+        const LIMIT = 20;
+        const page = parseInt(req.query.page || "0");
+        const startIndex = (Number(page) - 1) * LIMIT; 
+        const total = await Order.countDocuments({});
+        const orders = await Order.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+         res.json({ data: orders, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
      } catch (error) {
          return res.status(400).json({ message: error});
      }
