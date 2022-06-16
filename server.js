@@ -5,10 +5,11 @@ var cors = require('cors')
 
 const app = express()
 app.use(cors())
-
-const db = require('./db.js')
 app.use(express.json())
 app.use(express.static("public"));
+
+app.use(express.raw({type: "*/*"}))
+const db = require('./db.js')
 const path = require('path')
 const port = process.env.PORT ||8000
 
@@ -34,5 +35,13 @@ if(process.env.NODE_ENV ==='production')
     })
 }
 
+// Use JSON parser for all non-webhook routes
+app.use((req, res, next) => {
+    if (req.originalUrl === '/webhook') {
+      next();
+    } else {
+      express.json()(req, res, next);
+    }
+  });
 
 app.listen(port, () => `Server running on port port 🔥`)
