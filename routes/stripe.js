@@ -6,17 +6,6 @@ const stripe = require('stripe')('sk_test_51Jw3bUJYxHFKrvkMLNqRY6A239LQRhEaAEDVY
 const endpointSecret = "whsec_b87e50442de1ac3d74e9b5a43ce428e262dddc90b188397c630423f7e4512bfe";
 const Order = require('../models/orderModel')
 const sendEmail = require('../services/emailService');
-
-
-
-
-// router.get('/api/stripe/CheckoutSuccess', async (req, res) => {
-//   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-//   const customer = await stripe.customers.retrieve(session.customer);
-//   console.log('customer.name');
-//   res.send(`<html><body><h1>Thanks for your order, ${customer.name}!</h1></body></html>`);
-// });
-
 router.post('/create-checkout-session', async (req, res) => {
   const _cart = JSON.stringify(req.body.items.items)
   const customer = await stripe.customers.create({
@@ -40,7 +29,7 @@ router.post('/create-checkout-session', async (req, res) => {
         },
         unit_amount: item.price,
       },
-      quantity: item.quantity,
+      quantity: 1,
     };
   });
   // console.log(line_items);
