@@ -1,33 +1,24 @@
 const express = require("express");
 const router = express.Router();
 require('dotenv').config()
-
-const stripe = require('stripe')('sk_test_51Jw3bUJYxHFKrvkMLNqRY6A239LQRhEaAEDVYpbegu861Y2FZ32vTyw1kd21k0Mnm5ZQBuihelHGHjEhxnC8GEO900tsejH7WD')
-const endpointSecret = "whsec_b87e50442de1ac3d74e9b5a43ce428e262dddc90b188397c630423f7e4512bfe";
+const bodyparser = require('body-parser')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 const Order = require('../models/orderModel')
 const sendEmail = require('../services/emailService');
 
-
-
-
-// router.get('/api/stripe/CheckoutSuccess', async (req, res) => {
-//   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-//   const customer = await stripe.customers.retrieve(session.customer);
-//   console.log('customer.name');
-//   res.send(`<html><body><h1>Thanks for your order, ${customer.name}!</h1></body></html>`);
-// });
+let cart_items = [];
 
 router.post('/create-checkout-session', async (req, res) => {
-  const _cart = JSON.stringify(req.body.items.items)
+  // const _cart = JSON.stringify(req.body.items.items)
+  cart_items.push(JSON.stringify(req.body.items.items))
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
       // cart: JSON.stringify(req.body.items.items)
-      cart: (req.body.items.items).toString()
     }, 
-    // description: JSON.stringify(req.body.items.items)
   })
   const line_items = req.body.items.items.map((item) => {
+    // console.log();
     return {
       price_data: {
         currency: "jpy",
@@ -40,10 +31,9 @@ router.post('/create-checkout-session', async (req, res) => {
         },
         unit_amount: item.price,
       },
-      quantity: item.quantity,
+      quantity: 1,
     };
   });
-  // console.log(line_items);
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
@@ -93,18 +83,18 @@ router.post('/create-checkout-session', async (req, res) => {
         },
       },
     ],
-    phone_number_collection: {
-      enabled: true,
-    },
+    // phone_number_collection: {
+    //   enabled: true,
+    // },
     customer: customer.id,
     line_items,
     mode: 'payment',
     success_url: `${process.env.CLIENT_URL}/CheckoutSuccess`,
+    // success_url: `https://bimikitchen.jp`,
     // success_url: "http://localhost:3000/CheckoutSuccess?session_id={CHECKOUT_SESSION_ID}",
     cancel_url: 'http://localhost:3000/#',
   });
-  // console.log('line items', line_items);
-  // res.json(session)
+
   res.json({ url: session.url })
 
 });
@@ -112,9 +102,8 @@ router.post('/create-checkout-session', async (req, res) => {
 // Create order function
 
 const createOrder = async (customer, data) => {
-  const Items = JSON.parse(customer.meta.cart);
-
-  
+  const Items = JSON.parse(cart_items);
+  console.log('cart item', data);
   const products = Items.map((item) => {
     return {
       productId: item.id,
@@ -123,12 +112,11 @@ const createOrder = async (customer, data) => {
   });
 
   const newOrder = new Order({
-    // _id: customer.metadata.userId,
     customerId: data.customer,
     name: data.customer_details.name,
     email: data.customer_details.email,
     paymentIntentId: data.payment_intent,
-    orderItems: customer.meta.cart,
+    orderItems: cart_items,
     orderAmount: data.amount_subtotal,
     total: data.amount_total,
     shippingAddress: data.customer_details,
@@ -174,18 +162,19 @@ const createOrder = async (customer, data) => {
 
 router.post(
   "/webhook",
-  express.json({ type: "application/json" }),
+  express.raw({ type: "application/json" }),
   async (req, res) => {
     let data;
     let eventType;
 
     // Check if webhook signing is configured.
     let webhookSecret;
-    //webhookSecret = process.env.STRIPE_WEB_HOOK;
+    // webhookSecret = endpointSecret;
 
     if (webhookSecret) {
       // Retrieve the event by verifying the signature using the raw body and secret.
       let event;
+      let _cart;
       let signature = req.headers["stripe-signature"];
 
       try {
@@ -194,6 +183,7 @@ router.post(
           signature,
           webhookSecret
         );
+        
       } catch (err) {
         console.log(`⚠️  Webhook signature verification failed:  ${err}`);
         return res.sendStatus(400);
@@ -206,22 +196,17 @@ router.post(
       // retrieve the event data directly from the request body.
       data = req.body.data.object;
       eventType = req.body.type;
-      console.log('Event Data------------------------', data);
+      _cart = req.body;
+
+      // console.log('Event Data------------------------', data,_cart);
     }
 
-    // Handle the checkout.session.completed event
     if (eventType === "checkout.session.completed") {
-      console.log("checkout.session.completed");
       stripe.customers
         .retrieve(data.customer)
         .then(async (customer) => {
           try {
-            // CREATE ORDER
-            createOrder(customer, data);
-            // await sendEmail(options);
-            console.log(data);
-            console.log('customer', customer);
-
+            createOrder(customer, data);s
           } catch (err) {
             // console.log(typeof createOrder);
             console.log(err);
@@ -233,8 +218,6 @@ router.post(
     res.status(200).end();
   }
 );
-
-
 
 
 module.exports = router
