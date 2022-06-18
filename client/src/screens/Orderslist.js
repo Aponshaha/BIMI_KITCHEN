@@ -5,7 +5,7 @@ import {  deliverOrder, getAllOrders } from "../actions/orderActions";
 import Error from "../components/Error";
 import Filter from "../components/Filter";
 import Loading from "../components/Loading";
-import { Modal,Button,Toast,Row,Col } from "react-bootstrap";
+import { Modal,Button,Toast,Row,Col,Table } from "react-bootstrap";
 import { Pagination } from 'react-bootstrap';  
 import '../../src/App.css'
 
@@ -16,7 +16,6 @@ export default function Orderslist() {
   const [orderDetails, setOrderDetails] = useState(orders ? orders[0] : null);
   const [show, setShow] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  console.log('handleDetails',orders,currentPage,numberOfPages)
   const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
   const handleClose = () => setShow(false);
   const [toastShow, setToastShow] = useState(false);
@@ -24,6 +23,7 @@ export default function Orderslist() {
     dispatch(getAllOrders(pageNumber));// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
   const handleDetails = (order) => {
+    console.log('handleDetails',order)
     setShow(true)
     setOrderDetails(order)
 };
@@ -48,6 +48,11 @@ const gotoPrevious = () => {
 const gotoNext = () => {
   setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
 };
+const getShippingAddress = (shippingAddress) => {
+  console.log('shippingAddress',shippingAddress)
+  return "Japan"
+};
+
   return (
     <div>
       {loading && <Loading />}
@@ -120,15 +125,37 @@ const gotoNext = () => {
    <Modal.Title>Delivery Details</Modal.Title>
  </Modal.Header>
  <Modal.Body>
-   <h4>Items</h4>
-   <>
-   {orderDetails?.orderItems.length > 0 ? 
+ <Table striped bordered hover>
+  <thead>
+    <tr>
+      <th>Items</th>
+      {orderDetails.isTakeout ? 
+        <th>Phone Number</th>
+       : 
+       <th>Shipping Address</th>
+       }
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+      {orderDetails?.orderItems.length > 0 ? 
    orderDetails?.orderItems.map(item => {
     return <div>
        <p>{item.name} [{item.varient}] * {item.quantity} = {item.price}</p>
       </div>
    }): ''}
-    </>
+      </td>
+      {orderDetails.isTakeout ? 
+        <td>{orderDetails.phone}</td>
+       : 
+       <td>{getShippingAddress(orderDetails.shippingAddress)}</td>
+       }
+  <td>{orderDetails.orderAmount}</td>
+    </tr>
+  </tbody>
+</Table>
 </Modal.Body>
  <Modal.Footer>
    <Button variant="secondary" onClick={handleClose}>
