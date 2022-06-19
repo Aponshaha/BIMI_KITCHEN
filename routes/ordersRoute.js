@@ -142,6 +142,16 @@ router.post("/deliverorder", async(req, res) => {
   
 });
 
+router.get("/getpendingorders", async(req, res) => {
+    try {
+        const orders = await Order.find({isDelivered : false})
+        res.json({ data: orders.length});
+    } catch (error) {
+        return res.status(400).json({ message: error});
+    }
+});
+
+
 
 module.exports = router
 
