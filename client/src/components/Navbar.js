@@ -45,7 +45,7 @@ export default function Navbar() {
           <ul className="navbar-nav ml-auto mr-2">
             <li className="dropdown m-2">
               <a className="nav-link m-2" href="/#">
-                <LocalPhoneIcon />  03-6231-8440 {currentUser && currentUser.isAdmin === true &&  <>({pendingOrder})</>}
+                <LocalPhoneIcon />  03-6231-8440 {currentUser && currentUser.isAdmin === true && pendingOrder>0 && <>({pendingOrder})</>}
               </a>
             </li>
             <li className="dropdown m-2">
