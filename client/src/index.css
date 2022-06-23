@@ -112,6 +112,11 @@ select{
 .fa-trash{
   color: red !important;
 }
+
+.fa-edit{
+  color: blueviolet !important;
+}
+
 input{
   margin-top: 10px !important;
   box-shadow: none !important;

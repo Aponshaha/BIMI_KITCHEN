@@ -28,6 +28,8 @@ export default function Food({ food }) {
       setAlert(false)
   }, 2000);
   }
+  
+  console.log('food.image',food.image);
 
   return (
     <div data-aos='zoom-in'

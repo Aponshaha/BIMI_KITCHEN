@@ -43,11 +43,13 @@ export default function Foodslist  ()  {
                                 Large : {food.prices[0]['large']}
                                 
                             </td>
-                            <td>{food.category}</td>
+                                <td>{food.category}</td>
                             <td>
-                            <i className='fa fa-trash m-1' onClick={()=>{dispatch(deleteFood(food._id))}}></i>
-                            <Link to={`/admin/editfood/${food._id}`}><i className='fa fa-edit m-1'></i></Link>
-                </td>
+                                <i className='fa fa-trash m-1' onClick={()=>{dispatch(deleteFood(food._id))}}></i>
+                                <Link to={`/admin/editfood/${food._id}`}>
+                                    <i className='fa fa-edit m-1' ></i>
+                                </Link>
+                            </td>
                         </tr>
                 })}
             </tbody>
