@@ -136,10 +136,10 @@ const Addfood = () => {
                             className="form-control"
                             type="file"
                             placeholder="image url"
-                            // value={imageName}
+                            // value={imageName}1`
                             onChange={(e) => {
                                 setimageSelected(e.target.files[0]);
-                                // setimage(e.target.files[0])
+                                setimage(e.target.files[0])
                                 console.log('image selected', e.target.files[0]);
                             }}
                         />
@@ -154,6 +154,7 @@ const Addfood = () => {
 
                 </Col>
                 <Col>
+                    
                     {imgLoding && (<Loading />)}
                     {err ?
                         (
@@ -163,9 +164,7 @@ const Addfood = () => {
                         <img
                             className="w-100"
                             src={image}
-                            alt="Image Two"
-                            height="300"
-                            width="500"
+                            
                         />
                     }
 
