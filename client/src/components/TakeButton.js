@@ -118,7 +118,7 @@ const TakeButton = (items) =>{
           </Button>
         </Modal.Footer>
       </Modal>
-            <button onClick={()=>handleCheckout()}>
+            <button className="m-10 w-100" onClick={()=>handleCheckout()}>
                 Takeout
             </button>
         </>

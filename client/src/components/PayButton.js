@@ -22,7 +22,7 @@ const Paybutton = (items) =>{
     };
     return (
         <>
-            <button onClick={()=>handleCheckout()}>
+            <button className="m-10 w-100" onClick={()=>handleCheckout()}>
                 Checkout
             </button>
         </>
