@@ -48,6 +48,12 @@ export default function Homescreen() {
               src="https://res.cloudinary.com/dcq1c5yys/image/upload/v1643546776/HomeSlider1.jpg"
               alt="Image One"
             />
+            {/* <Image publicId="lady.jpg" >
+              <Transformation gravity="face" height="400" width="400" crop="crop" />
+              <Transformation radius="max" />
+              <Transformation width="200" crop="scale" />
+            </Image> */}
+
             <Carousel.Caption>
               <h1>BIMI KITCHEN</h1>
               <p>Bangladeshi Home Style Food with Japanese Quality!!!</p>
@@ -84,7 +90,7 @@ export default function Homescreen() {
           })
         )}
       </div>
-      <Menu />
+      {/* <Menu /> */}
       <Fab
         sx={{
           position: "fixed",

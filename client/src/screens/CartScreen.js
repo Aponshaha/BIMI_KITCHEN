@@ -10,14 +10,10 @@ import Takeout from '../components/Takeout';
 import PayButton from '../components/PayButton';
 import TakeButton from '../components/TakeButton';
 import {isMobile} from 'react-device-detect';
-
-
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 export default function Cartscreen() {
-    console.log('isMobile',isMobile)
     AOS.init();
     const cartstate = useSelector(state => state.cartReducer);
     const cartItems = cartstate.cartItems;
@@ -58,35 +54,17 @@ export default function Cartscreen() {
                 </>
                 : 
                 <>
-                	<div style={{padding:'100px'}} class="col-sm-12 empty-cart-cls text-center">
-									<img src="https://assets.materialup.com/uploads/66fb8bdf-29db-40a2-996b-60f3192ea7f0/preview.png" width="160" height="160" class="img-fluid mb-4 mr-3" />
+                	<div style={{padding:isMobile? '40px':'100px'}} class="col-sm-12 empty-cart-cls text-center">
+									<img alt={'Empty Cart'} src="https://assets.materialup.com/uploads/66fb8bdf-29db-40a2-996b-60f3192ea7f0/preview.png" width="160" height="160" class="img-fluid mb-4 mr-3" />
 									<h3><strong>Your Cart is Empty</strong></h3>
 									<h4>Add something to make me happy :)</h4>
 									<a href="/" class="btn btn-primary">continue shopping</a>
-									
-								
 					</div>
                 </>
             }
                 </div>
-
-                {/* <div className="col-md-4 text-left tabs font-size-small ">
-                    <Tabs
-                        defaultActiveKey="takeout"
-                        id="noanim-tab-example"
-                        className="mb-3"
-                    >
-                        <Tab eventKey="takeout" title="Take Out">
-                            <Takeout subtotal={subtotal} />
-                            
-                        </Tab>
-                        <Tab eventKey="profile" title="Delivery">
-                            <Checkout subtotal={subtotal} />
-                        </Tab>
-                    </Tabs>
-                </div> */}
                       {cartItems.length>0 && 
-                                      <div style={{paddingTop:'55px'}} className="col-md-3">
+                                      <div style={{paddingTop:isMobile? '0px':'55px'}} className="col-md-3">
                                       <PayButton  items = {cartItems}/>
                                       <br />
                                       <TakeButton items = {cartItems}/>
@@ -101,5 +79,3 @@ export default function Cartscreen() {
         </div>
     );
 }
-
-

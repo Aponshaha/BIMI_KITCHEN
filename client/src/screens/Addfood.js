@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Image, Video, Transformation } from 'cloudinary-react';
+import { Image, Video, Transformation, AdvancedImage,lazyload,responsive,accessibility,placeholder } from 'cloudinary-react';
+
 import { addFood } from "../actions/foodActions";
 import Error from "../components/Error";
 import Loading from "../components/Loading";
@@ -136,10 +137,10 @@ const Addfood = () => {
                             className="form-control"
                             type="file"
                             placeholder="image url"
-                            // value={imageName}
+                            // value={imageName}1`
                             onChange={(e) => {
                                 setimageSelected(e.target.files[0]);
-                                // setimage(e.target.files[0])
+                                setimage(e.target.files[0])
                                 console.log('image selected', e.target.files[0]);
                             }}
                         />
@@ -154,6 +155,7 @@ const Addfood = () => {
 
                 </Col>
                 <Col>
+                    
                     {imgLoding && (<Loading />)}
                     {err ?
                         (
@@ -163,9 +165,7 @@ const Addfood = () => {
                         <img
                             className="w-100"
                             src={image}
-                            alt="Image Two"
-                            height="300"
-                            width="500"
+                            
                         />
                     }
 
