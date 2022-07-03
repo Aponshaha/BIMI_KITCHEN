@@ -2,6 +2,13 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup'
 import Carousel from 'react-bootstrap/Carousel';
+import {
+	AdvancedImage,
+	lazyload,
+	responsive,
+	accessibility,
+	placeholder
+} from "@cloudinary/react";
 
 
 const Menu = () => {

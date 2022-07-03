@@ -1,13 +1,29 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/userActions";
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import axios from "axios";
+
 export default function Navbar() {
   const cartstate = useSelector((state) => state.cartReducer);
   const userstate = useSelector((state) => state.loginUserReducer);
+  const [pendingOrder, setPendingOrder] = useState(0);
   const { currentUser } = userstate;
   const dispatch = useDispatch()
   console.log(currentUser);
+  useEffect(() => {
+    if(currentUser?.isAdmin === true){
+      const interval = setInterval(() => {
+        const fetchData = async () => {
+          const orders = await axios.get('/api/orders/getpendingorders')
+          setPendingOrder(Number(orders.data.data))
+        }
+        fetchData()
+      }, 10000);
+      return () => clearInterval(interval);  
+    }
+  }, [currentUser?.isAdmin]);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg shadow-lg bg-white rounded">
@@ -29,11 +45,11 @@ export default function Navbar() {
           <ul className="navbar-nav ml-auto mr-2">
             <li className="dropdown m-2">
               <a className="nav-link m-2" href="/#">
-                <LocalPhoneIcon />  03-6231-8440
+                <LocalPhoneIcon />  03-6231-8440 {currentUser && currentUser.isAdmin === true && pendingOrder>0 && <>({pendingOrder})</>}
               </a>
             </li>
             <li className="dropdown m-2">
-              <a className="nav-link  m-2" href="/#">
+              <a className="nav-link  m-2" href="/about">
                 About
               </a>
             </li>
@@ -47,7 +63,7 @@ export default function Navbar() {
                 <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-toggle m-4 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {currentUser.name}
                 </a>
-                {currentUser.name === 'admin' ? (
+                {currentUser.isAdmin === true ? (
                   <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/admin"><li>ADMIN</li></a>

@@ -28,6 +28,8 @@ export default function Food({ food }) {
       setAlert(false)
   }, 2000);
   }
+  
+  console.log('food.image',food.image);
 
   return (
     <div data-aos='zoom-in'
@@ -85,7 +87,7 @@ export default function Food({ food }) {
           </h1>
         </div>
         <div className="m-1 w-100" >
-          <button className="btn" onClick={addtocart}> ADD TO CART</button>
+          <button style={{height: 'auto'}} className="btn m-0 w-100" onClick={addtocart}> ADD TO CART</button>
         </div>
       </div>
       {alert && (<Success success='Added to Cart' />)}

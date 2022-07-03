@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './index.css';
+import './stripe.css';
 import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import {BrowserRouter , Route, Routes } from 'react-router-dom'
@@ -14,9 +15,9 @@ import Footer from './components/Footer';
 import EmailVerification from './screens/EmailVerification';
 import StripeCheckout from './components/Stripecheckout.js';
 import CheckoutForm from './components/CheckoutForm';
-
-
-
+import CheckoutSuccess from './components/CheckoutSuccess';
+import CheckoutCancelled from './components/CheckoutCancelled';
+import AboutScreen from './screens/AboutScreen'
 
 export default function App() {
   return (
@@ -32,7 +33,10 @@ export default function App() {
           <Route path='/orders' exact element={<Ordersscreen />}/>
           <Route path='/admin/*' element={<Adminscreen />}/>
           <Route path='/user/verify' element={<EmailVerification />}/>
-          <Route path="/stripe" exact element={<StripeCheckout />}/>
+          <Route path="/payment" exact element={<CheckoutForm />}/>
+          <Route path="/CheckoutSuccess" exact element={<CheckoutSuccess />}/>
+          <Route path="/CheckoutCancelled" exact element={<CheckoutCancelled />}/>
+          <Route path="/about" exact element={<AboutScreen />}/>
         </Routes>
        </BrowserRouter>
       </div>
