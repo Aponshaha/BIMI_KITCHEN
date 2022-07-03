@@ -20,8 +20,10 @@ export default function Orderslist() {
   const handleClose = () => setShow(false);
   const [toastShow, setToastShow] = useState(false);
   useEffect(() => {
-    dispatch(getAllOrders(pageNumber));// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNumber]);
+  //   dispatch(getAllOrders(pageNumber));// eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pageNumber]);
+    dispatch(getAllOrders());// eslint-disable-next-line react-hooks/exhaustive-deps
+  });
   const handleDetails = (order) => {
     console.log('handleDetails',order)
     setShow(true)
@@ -111,11 +113,11 @@ const getShippingAddress = (shippingAddress) => {
         </tbody>
       </table>
       <div className='container p-2'>  
-   <Pagination size="lg">  
+   {/* <Pagination size="lg">  
      {pages.map((pageIndex) => (
        <Pagination.Item active={pageNumber === Number(pageIndex+1)} key={pageIndex} onClick={() => changePage(Number(pageIndex+1))}>{pageIndex + 1}</Pagination.Item>  
       ))}
-   </Pagination>  
+   </Pagination>   */}
    </div>  
 
 

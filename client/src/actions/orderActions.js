@@ -42,7 +42,7 @@ export const getUserOrders = () => async (dispatch, getState) => {
     }
 }
 
-export const getAllOrders = (pageNumber) => async (dispatch, getState) => {
+export const getAllOrders = () => async (dispatch, getState) => {
     dispatch({ type: 'GET_ALLORDERS_REQUEST' })
     try {
         const { data: { data, currentPage, numberOfPages } } = await axios.get(`/api/orders/getallorders?page=${pageNumber}`)

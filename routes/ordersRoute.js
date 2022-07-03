@@ -115,12 +115,14 @@ router.post("/getuserorders", async(req, res) => {
 
 router.get("/getallorders", async(req, res) => {
      try {
-        const LIMIT = 20;
-        const page = parseInt(req.query.page || "0");
-        const startIndex = (Number(page) - 1) * LIMIT; 
-        const total = await Order.countDocuments({});
-        const orders = await Order.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
-         res.json({ data: orders, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+        // const LIMIT = 20;
+        // const page = parseInt(req.query.page || "0");
+        // const startIndex = (Number(page) - 1) * LIMIT; 
+        // const total = await Order.countDocuments({});
+        // const orders = await Order.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        const orders = await Order.find().sort({ _id: -1 });
+        // res.json({ data: orders, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+        res.json({ data: orders});
      } catch (error) {
          return res.status(400).json({ message: error});
      }
