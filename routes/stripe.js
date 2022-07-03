@@ -89,9 +89,10 @@ router.post('/create-checkout-session', async (req, res) => {
     line_items,
     mode: 'payment',
     success_url: `${process.env.CLIENT_URL}/CheckoutSuccess`,
+    cancel_url: `${process.env.CLIENT_URL}/cart`,
     // success_url: `https://bimikitchen.jp`,
     // success_url: "http://localhost:3000/CheckoutSuccess?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: 'http://localhost:3000/#',
+    // cancel_url: 'http://localhost:3000/#',
   });
 
   res.json({ url: session.url })
