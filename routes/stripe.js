@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 require('dotenv').config()
-const bodyparser = require('body-parser')
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 const Order = require('../models/orderModel')
 const sendEmail = require('../services/emailService');
@@ -206,7 +205,7 @@ router.post(
         .retrieve(data.customer)
         .then(async (customer) => {
           try {
-            createOrder(customer, data);s
+            createOrder(customer, data);
           } catch (err) {
             // console.log(typeof createOrder);
             console.log(err);

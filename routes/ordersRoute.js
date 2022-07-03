@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+require('dotenv').config()
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 // router.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
@@ -7,7 +9,6 @@ const router = express.Router();
 //     next();
 //   });
 const { v4: uuidv4 } = require('uuid');
-const stripe = require("stripe")("sk_test_51Jw3bUJYxHFKrvkMLNqRY6A239LQRhEaAEDVYpbegu861Y2FZ32vTyw1kd21k0Mnm5ZQBuihelHGHjEhxnC8GEO900tsejH7WD")
 const Order = require('../models/orderModel')
 const sendEmail = require('../services/emailService');
 
