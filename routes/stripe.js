@@ -191,7 +191,8 @@ router.post(
       // Extract the object from the event.
       data = event.data.object;
       eventType = event.type;
-    } else {
+    } 
+    else {
       // Webhook signing is recommended, but if the secret is not configured in `config.js`,
       // retrieve the event data directly from the request body.
       data = req.body.data.object;
@@ -214,8 +215,9 @@ router.post(
         })
         .catch((err) => console.log(err.message));
     }
-    else{
-      createOrder(customer, data);
+
+    else if (eventType === "checkout.session.async_payment_failed"){
+      console.log(data);
     }
     
     res.status(200).end();
