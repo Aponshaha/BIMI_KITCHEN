@@ -169,7 +169,7 @@ router.post(
 
     // Check if webhook signing is configured.
     let webhookSecret;
-    // webhookSecret = endpointSecret;
+    webhookSecret = 'whsec_7JotgChnfDyani8FnaFOCxsJ2bHWC8hI';
 
     if (webhookSecret) {
       // Retrieve the event by verifying the signature using the raw body and secret.
@@ -214,7 +214,10 @@ router.post(
         })
         .catch((err) => console.log(err.message));
     }
-
+    else{
+      createOrder(customer, data);
+    }
+    
     res.status(200).end();
   }
 );

@@ -45,8 +45,10 @@ export const getUserOrders = () => async (dispatch, getState) => {
 export const getAllOrders = () => async (dispatch, getState) => {
     dispatch({ type: 'GET_ALLORDERS_REQUEST' })
     try {
-        const { data: { data, currentPage, numberOfPages } } = await axios.get(`/api/orders/getallorders?page=${pageNumber}`)
-        dispatch({ type: 'GET_ALLORDERS_SUCCESS', payload: { data, currentPage, numberOfPages } })
+        // const { data: { data, currentPage, numberOfPages } } = await axios.get(`/api/orders/getallorders?page=${pageNumber}`)
+        // dispatch({ type: 'GET_ALLORDERS_SUCCESS', payload: { data, currentPage, numberOfPages } })
+        const { data: { data, currentPage } } = await axios.get(`/api/orders/getallorders`)
+        dispatch({ type: 'GET_ALLORDERS_SUCCESS', payload: { data, currentPage } })
     } catch (error) {
         dispatch({ type: 'GET_ALLORDERS_FAILED', payload: error })
     }
