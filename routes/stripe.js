@@ -163,7 +163,7 @@ const createOrder = async (customer, data) => {
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  async (req, res) => {
+  (req, res) => {
     let data;
     let eventType;
 
