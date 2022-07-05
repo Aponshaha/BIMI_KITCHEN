@@ -199,7 +199,7 @@ router.post(
       eventType = req.body.type;
       _cart = req.body;
 
-      // console.log('Event Data------------------------', data,_cart);
+      console.log('Event Data------------------------', data,_cart);
     }
 
     if (eventType === "checkout.session.completed") {
@@ -219,7 +219,7 @@ router.post(
     else if (eventType === "checkout.session.async_payment_failed"){
       console.log(data);
     }
-    
+
     res.status(200).end();
   }
 );
