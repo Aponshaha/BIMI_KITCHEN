@@ -181,7 +181,7 @@ router.post(
       try {
         event = stripe.webhooks.constructEvent(
           stripePayload, 
-          stripeSignature?.toString(),
+          signature?.toString(),
           webhookSecret
         );
         
