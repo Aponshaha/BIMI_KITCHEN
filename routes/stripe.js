@@ -168,6 +168,7 @@ router.post(
     let eventType;
 
     // Check if webhook signing is configured.
+    const stripePayload = (req).rawBody || req.body;
     let webhookSecret;
     webhookSecret = 'whsec_7JotgChnfDyani8FnaFOCxsJ2bHWC8hI';
 
@@ -179,8 +180,8 @@ router.post(
 
       try {
         event = stripe.webhooks.constructEvent(
-          req.body,
-          signature,
+          stripePayload, 
+          stripeSignature?.toString(),
           webhookSecret
         );
         
