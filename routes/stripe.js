@@ -9,14 +9,14 @@ let cart_items = [];
 
 router.post('/create-checkout-session', async (req, res) => {
   // const _cart = JSON.stringify(req.body.items.items)
-  cart_items.push(JSON.stringify(req.body.items.items))
+  cart_items.push(JSON.stringify(req.rawBody.items.items))
   const customer = await stripe.customers.create({
     metadata: {
-      userId: req.body.userId,
+      userId: req.rawBody.userId,
       // cart: JSON.stringify(req.body.items.items)
     }, 
   })
-  const line_items = req.body.items.items.map((item) => {
+  const line_items = req.rawBody.items.items.map((item) => {
     // console.log();
     return {
       price_data: {
@@ -196,9 +196,9 @@ router.post(
     else {
       // Webhook signing is recommended, but if the secret is not configured in `config.js`,
       // retrieve the event data directly from the request body.
-      data = req.body.data.object;
-      eventType = req.body.type;
-      _cart = req.body;
+      data = req.rawBody.data.object;
+      eventType = req.rawBody.type;
+      _cart = req.rawBody;
 
       console.log('Event Data------------------------', data,_cart);
     }
