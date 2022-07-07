@@ -33,6 +33,7 @@ router.post('/create-checkout-session', async (req, res) => {
       quantity: 1,
     };
   });
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
@@ -90,9 +91,6 @@ router.post('/create-checkout-session', async (req, res) => {
     mode: 'payment',
     success_url: `${process.env.CLIENT_URL}/CheckoutSuccess`,
     cancel_url: `${process.env.CLIENT_URL}/cart`,
-    // success_url: `https://bimikitchen.jp`,
-    // success_url: "http://localhost:3000/CheckoutSuccess?session_id={CHECKOUT_SESSION_ID}",
-    // cancel_url: 'http://localhost:3000/#',
   });
 
   res.json({ url: session.url })
@@ -104,12 +102,6 @@ router.post('/create-checkout-session', async (req, res) => {
 const createOrder = async (customer, data) => {
   const Items = JSON.parse(cart_items);
   console.log('cart item', data);
-  const products = Items.map((item) => {
-    return {
-      productId: item.id,
-      quantity: item.cartQuantity,
-    };
-  });
 
   const newOrder = new Order({
     customerId: data.customer,
@@ -169,8 +161,8 @@ router.post(
 
     // Check if webhook signing is configured.
     const stripePayload = (req).rawBody || req.body;
-    let webhookSecret;
-    webhookSecret = 'whsec_7JotgChnfDyani8FnaFOCxsJ2bHWC8hI';
+    
+    const webhookSecret = 'whsec_7JotgChnfDyani8FnaFOCxsJ2bHWC8hI';
 
     if (webhookSecret) {
       // Retrieve the event by verifying the signature using the raw body and secret.
