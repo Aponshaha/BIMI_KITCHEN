@@ -158,6 +158,7 @@ router.post(
   (req, res) => {
     let data;
     let eventType;
+    req.setEncoding('utf8');
 
     // Check if webhook signing is configured.
     const stripePayload = (req).rawBody || req.body;
