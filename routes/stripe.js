@@ -163,7 +163,7 @@ router.post(
     // Check if webhook signing is configured.
     const stripePayload = (req).rawBody || req.body;
     
-    const webhookSecret = 'whsec_cEYmgrb1HTQh3mtbv5AxZBpEuVEP4mQG';
+    const webhookSecret = 'whsec_b87e50442de1ac3d74e9b5a43ce428e262dddc90b188397c630423f7e4512bfe';
 
     if (webhookSecret) {
       // Retrieve the event by verifying the signature using the raw body and secret.
