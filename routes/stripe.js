@@ -4,6 +4,7 @@ require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 const Order = require('../models/orderModel')
 const sendEmail = require('../services/emailService');
+const webhookSecret = 'whsec_b87e50442de1ac3d74e9b5a43ce428e262dddc90b188397c630423f7e4512bfe';
 
 let cart_items = [];
 
@@ -162,8 +163,6 @@ router.post(
 
     // Check if webhook signing is configured.
     const stripePayload = (req).rawBody || req.body;
-    
-    const webhookSecret = 'whsec_b87e50442de1ac3d74e9b5a43ce428e262dddc90b188397c630423f7e4512bfe';
 
     if (webhookSecret) {
       // Retrieve the event by verifying the signature using the raw body and secret.
