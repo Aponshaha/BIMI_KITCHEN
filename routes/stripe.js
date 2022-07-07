@@ -9,7 +9,7 @@ let cart_items = [];
 
 router.post('/create-checkout-session', async (req, res) => {
   // const _cart = JSON.stringify(req.body.items.items)
-  cart_items.push(JSON.stringify(req.rawBody.items.items))
+  cart_items.push(JSON.stringify(req.body.items.items))
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
