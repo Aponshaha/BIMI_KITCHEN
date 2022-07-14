@@ -102,14 +102,14 @@ router.post('/create-checkout-session', async (req, res) => {
 // Create order function
 
 const createOrder = async (customer, data) => {
-  const Items = JSON.parse(cart_items);
-  console.log('cart item', data);
-  const products = Items.map((item) => {
-    return {
-      productId: item.id,
-      quantity: item.cartQuantity,
-    };
-  });
+  // const Items = JSON.parse(cart_items);
+  // console.log('cart item', data);
+  // const products = Items.map((item) => {
+  //   return {
+  //     productId: item.id,
+  //     quantity: item.cartQuantity,
+  //   };
+  // });
 
   const newOrder = new Order({
     customerId: data.customer,
@@ -143,7 +143,7 @@ const createOrder = async (customer, data) => {
       shippingAddress_postal_code: newOrder.shippingAddress.postal_code,
       shippingAddress_state: newOrder.shippingAddress.state,
       total: newOrder.total,
-      orderItems: newOrder.orderItems
+      orderItems: JSON.parse(cart_items)
     },
   };
   
@@ -206,7 +206,7 @@ router.post(
         .retrieve(data.customer)
         .then(async (customer) => {
           try {
-            createOrder(customer, data);s
+            createOrder(customer, data);
           } catch (err) {
             // console.log(typeof createOrder);
             console.log(err);
