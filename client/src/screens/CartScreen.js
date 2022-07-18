@@ -1,12 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
-import Box from '@mui/material/Box';
 import { addToCart } from '../actions/cartActions';
-import { deleteFromCart } from '../actions/cartActions'
-import Checkout from '../components/Checkout';
-import Takeout from '../components/Takeout';
+import { deleteFromCart } from '../actions/cartActions';
 import PayButton from '../components/PayButton';
 import TakeButton from '../components/TakeButton';
 import {isMobile} from 'react-device-detect';
@@ -77,5 +72,5 @@ export default function Cartscreen() {
             </div>
             
         </div>
-    );
+);
 }
