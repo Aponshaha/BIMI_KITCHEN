@@ -101,7 +101,6 @@ router.post("/takeout", async(req, res) => {
 });
 router.post("/cashondelivery", async(req, res) => {
     const {subtotal , name,email,phone, cartItems,userId,address,zipCode,building} = req.body
-    console.log('cashondelivery',subtotal , name,email,phone, cartItems,userId,address,zipCode,building)
     try {
       const neworder = new Order({
           name : name,

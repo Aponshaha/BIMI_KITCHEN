@@ -45,7 +45,7 @@ const CashOnDelivery = (items) => {
   };
 
   const handleConfirm = () => {
-    if (validateEmail(umail) !== null && uname !== "" && uphone !== "" && address1 !== "" && building !== "" && zipCode.length>8) {
+    if (validateEmail(umail) !== null && uname !== "" && uphone !== "" && address1 !== "" && building !== "" && zipCode.length === 9) {
       axios
         .post(`/api/orders/cashondelivery`, {
           cartItems: items.items,
@@ -138,7 +138,7 @@ const CashOnDelivery = (items) => {
             </Form.Group>
             {error && (
               <Form.Label style={{ color: "red" }}>
-                Please provide valid Name,Email and Phone number
+                Please provide valid Name,Email, Phone number and Address
               </Form.Label>
             )}
           </Form>

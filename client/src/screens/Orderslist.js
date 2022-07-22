@@ -24,7 +24,6 @@ export default function Orderslist() {
     dispatch(getAllOrders(pageNumber)); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
   const handleDetails = (order) => {
-    console.log("handleDetails", order);
     setShow(true);
     setOrderDetails(order);
   };
@@ -51,13 +50,13 @@ export default function Orderslist() {
     setPageNumber(number);
     //setPageNumber(Math.max(0, pageNumber - 1));
   };
-  const gotoPrevious = () => {
-    setPageNumber(Math.max(0, pageNumber - 1));
-  };
+  // const gotoPrevious = () => {
+  //   setPageNumber(Math.max(0, pageNumber - 1));
+  // };
 
-  const gotoNext = () => {
-    setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
-  };
+  // const gotoNext = () => {
+  //   setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
+  // };
   const getShippingAddress = (shippingAddress) => {
     return shippingAddress.address?.country +',' + shippingAddress.address?.city;
   };
@@ -121,7 +120,7 @@ export default function Orderslist() {
             autohide
           >
             <Toast.Header>
-              <strong className="me-auto">Delevered</strong>
+              <strong className="me-auto">Delivery Status</strong>
             </Toast.Header>
             <Toast.Body>{deliveryStatus}</Toast.Body>
           </Toast>
@@ -135,7 +134,7 @@ export default function Orderslist() {
             <th>User</th>
             <th>Amount</th>
             <th>Date</th>
-            <th>Order</th>
+            <th>Order Type</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -207,7 +206,6 @@ export default function Orderslist() {
                 <tr>
                   <th>Items</th>
                   {getTakeoutStatus(orderDetails.isTakeout)}
-                  {/* <th>Total Amount</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -227,12 +225,6 @@ export default function Orderslist() {
                       : ""}
                   </td>
                   {getTakeoutValues(orderDetails.isTakeout,orderDetails)}
-                  {/* {orderDetails.isTakeout ? (
-                    <td>{orderDetails.phone}</td>
-                  ) : (
-                    <td>{getShippingAddress(orderDetails.shippingAddress)}</td>
-                  )} */}
-                  {/* <td>{orderDetails.orderAmount}</td> */}
                 </tr>
               </tbody>
             </Table>
