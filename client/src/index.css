@@ -112,6 +112,14 @@ select{
 .fa-trash{
   color: red !important;
 }
+.fa-times{
+  cursor: pointer;
+  color: red !important;
+}
+.fa-check{
+  cursor: pointer;
+  color: green !important;
+}
 
 .fa-edit{
   color: blueviolet !important;

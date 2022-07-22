@@ -91,16 +91,36 @@ router.post("/takeout", async(req, res) => {
         orderItems : cartItems , 
         orderAmount : subtotal,
         phone : phone,
-        isTakeout: true
+        isTakeout: 1
     })
     await neworder.save()
     res.send('Order placed successfully')
   } catch (error) {
       return res.status(400).json({ message: 'Something went wrong' + error});
   }
-
 });
-
+router.post("/cashondelivery", async(req, res) => {
+    const {subtotal , name,email,phone, cartItems,userId,address,zipCode,building} = req.body
+    console.log('cashondelivery',subtotal , name,email,phone, cartItems,userId,address,zipCode,building)
+    try {
+      const neworder = new Order({
+          name : name,
+          email : email ,
+          userid : userId ,
+          orderItems : cartItems , 
+          orderAmount : subtotal,
+          phone : phone,
+          isTakeout: 2,
+          address,
+          zipCode,
+          building
+      })
+      await neworder.save()
+      res.send('Order placed successfully')
+    } catch (error) {
+        return res.status(400).json({ message: 'Something went wrong' + error});
+    }
+  });
 
 router.post("/getuserorders", async(req, res) => {
   const {userid} = req.body
@@ -131,7 +151,7 @@ router.post("/deliverorder", async(req, res) => {
     const orderid = req.body.orderid
     try {
         const order = await Order.findOne({_id : orderid})
-        order.isDelivered = true
+        order.isDelivered = 1
         await order.save()
         res.send('Order Delivered Successfully')
     } catch (error) {
@@ -141,10 +161,21 @@ router.post("/deliverorder", async(req, res) => {
     }
   
 });
+router.post("/cancellorder", async(req, res) => {
+    const orderid = req.body.orderid
+    try {
+        const order = await Order.findOne({_id : orderid})
+        order.isDelivered = 2
+        await order.save()
+        res.send('Order Cancelled Successfully')
+    } catch (error) {
+        return res.status(400).json({ message: error});
+    }
+});
 
 router.get("/getpendingorders", async(req, res) => {
     try {
-        const orders = await Order.find({isDelivered : false})
+        const orders = await Order.find({isDelivered : 0})
         res.json({ data: orders.length});
     } catch (error) {
         return res.status(400).json({ message: error});

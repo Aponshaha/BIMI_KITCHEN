@@ -9,11 +9,13 @@ const orderSchema= mongoose.Schema({
     shippingAddress : {type:Object},
     orderAmount : {type:Number , require},
     total : {type:Number , require},
-    isDelivered : {type:Boolean , require , default: false},
-    isTakeout : {type:Boolean , default: false},
+    isDelivered : {type:Number , require , default: 0},
+    isTakeout : {type:Number , require , default: 0},
     paymentIntentId : {type:String , require},
     payment_status : {type:String , require},
-    
+    address : {type: String },
+    zipCode : {type: String },
+    building : {type: String },
 },{
     timestamps : true
 })

@@ -9,6 +9,7 @@ import Checkout from '../components/Checkout';
 import Takeout from '../components/Takeout';
 import PayButton from '../components/PayButton';
 import TakeButton from '../components/TakeButton';
+import CashOnDelivery from '../components/CashOnDelivery';
 import {isMobile} from 'react-device-detect';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -68,6 +69,8 @@ export default function Cartscreen() {
                                       <PayButton  items = {cartItems}/>
                                       <br />
                                       <TakeButton items = {cartItems}/>
+                                      <br />
+                                      <CashOnDelivery items = {cartItems}/>
                                       </div>
                       
                       }
