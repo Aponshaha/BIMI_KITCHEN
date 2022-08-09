@@ -8,7 +8,6 @@ const CashOnDelivery = (items) => {
   const userstate = useSelector((state) => state.loginUserReducer);
   const { currentUser } = userstate;
   const [show, setShow] = useState(false);
-  const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
   const [values, setValues] = useState({
     name: '',
@@ -32,7 +31,6 @@ const CashOnDelivery = (items) => {
 
   const handleClose = () => {
     setShow(false);
-    setError(false);
   };
   const navigate = useNavigate();
 
