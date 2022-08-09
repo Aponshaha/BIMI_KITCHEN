@@ -11,15 +11,66 @@ const TakeButton = (items) =>{
     const userstate = useSelector((state) => state.loginUserReducer);
     const { currentUser } = userstate;
     const [show, setShow] = useState(false);
-    const [uname, setName] = useState('')
-    const [umail, setEmail] = useState('')
-    const [uphone, setPhone] = useState('')
-    const [error, setError] = useState(false);
     const [price, setPrice] = useState(0);
-
+    const [values, setValues] = useState({
+      name: '',
+      email: '',
+      phone: ''
+    })
+   
+    const [validations, setValidations] = useState({
+      name: '',
+      email: '',
+      phone: ''
+    })
+  
+    const validateAll = () => {
+      const { name, email, phone } = values
+      const validations = { name: '', email: '', phone: '' }
+      let isValid = true
+      
+      if (!name) {
+        validations.name = 'Name is required'
+        isValid = false
+      }
+      
+      if ((name && name.length < 3) || name.length > 50) {
+        validations.name = 'Name must contain between 3 and 50 characters'
+        isValid 
+        = false
+      }
+      if (!phone) {
+        validations.phone = 'Phone is required'
+        isValid = false
+      }
+      if (phone && phone.length < 8) {
+        validations.phone = 'Phone must greater than 8'
+        isValid 
+        = false
+      }
+      if (!email) {
+        validations.email = 'Email is required'
+        isValid = false
+      }
+      
+      if (email && !/\S+@\S+\.\S+/.test(email)) {
+        validations.email = 'Email format must be as example@mail.com'
+        isValid = false
+      }
+          
+      if (!isValid) {
+        setValidations(validations)
+      }
+      
+      return isValid
+    }
+    const handleChange = (e) => {
+      const { name, value } = e.target
+      setValues({...values, [name]: value })
+    }
+  
     const handleClose = () => {
       setShow(false)
-      setError(false)
     };
     const navigate = useNavigate();
 
@@ -34,23 +85,18 @@ const TakeButton = (items) =>{
     const handleCheckout = () => {
         setShow(true)
     };
-    const validateEmail = (email) => {
-        return String(email)
-          .toLowerCase()
-          .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          );
-      };
-      
     const handleConfirm = () => {
-        if(validateEmail(umail) !== null && uname!== '' && uphone!== '')
+      const isValid = validateAll()
+      if (!isValid) {
+        return false
+      } else
         {
             axios.post(`/api/orders/takeout`,{
                 cartItems : items.items,
                 userId:  currentUser._id ? currentUser._id : Math.random().toString(36).substring(2,7),
-                name :  uname ,
-                email :  umail,
-                phone : uphone,
+                name :  name ,
+                email :  email,
+                phone : phone,
                 subtotal:price   
             })
             .then((res)=>{
@@ -65,11 +111,15 @@ const TakeButton = (items) =>{
             navigate("/CheckoutCancelled")
             )    
         }
-        else{
-            setError(true)
-        }
     };
+    const { name, email,phone } = values
 
+    const { 
+      name: nameVal, 
+      email: emailVal, 
+      phone: phoneVal 
+    } = validations
+  
     return (
         <>
               <Modal show={show} onHide={handleClose}>
@@ -84,8 +134,12 @@ const TakeButton = (items) =>{
                 type="text"
                 placeholder="Name"
                 autoFocus
-                onChange={(e) => setName(e.target.value)}
+                // onChange={(e) => setName(e.target.value)}
+                name="name"
+                value={name} 
+                onChange={handleChange}
               />
+              {nameVal && <Form.Label style={{color:'red'}}>{nameVal}</Form.Label>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email</Form.Label>
@@ -93,8 +147,11 @@ const TakeButton = (items) =>{
                 type="email"
                 placeholder="name@example.com"
                 autoFocus
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                name="email"
+                value={email} 
+                onChange={handleChange}
+                />
+                {emailVal &&<Form.Label style={{color:'red'}}>{emailVal}</Form.Label>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Phone Number</Form.Label>
@@ -102,10 +159,13 @@ const TakeButton = (items) =>{
                 type="text"
                 placeholder="Phone"
                 autoFocus
-                onChange={(e) => setPhone(e.target.value)}
-              />
+                name="phone"
+                value={phone} 
+                onChange={handleChange}
+                />
+               {phoneVal && <Form.Label style={{color:'red'}}>{phoneVal}</Form.Label>}
             </Form.Group>
-            {error && <Form.Label style={{color:'red'}}>Please provide valid Name,Email and Phone number</Form.Label>}
+            {/* {error && <Form.Label style={{color:'red'}}>Please provide valid Name,Email and Phone number</Form.Label>} */}
 
           </Form>
         </Modal.Body>
