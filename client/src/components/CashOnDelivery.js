@@ -122,6 +122,7 @@ const CashOnDelivery = (items) => {
     if (!isValid) {
       return false
     } else
+    {
     axios
         .post(`/api/orders/cashondelivery`, {
           cartItems: items.items,
@@ -144,6 +145,7 @@ const CashOnDelivery = (items) => {
           }
         })
         .catch((err) => navigate("/CheckoutCancelled"));
+      }
   };
   const { name, email,phone , address1,address2, building,zipCode} = values
 

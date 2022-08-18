@@ -33,9 +33,9 @@ export default function Cartscreen() {
                 <div className="col-md-7">
                 {cartItems.length>0 ? 
                 <>
-                    <h2 className="text-center" style={{ fontSize: '40px' }}>My Cart</h2>
+                    <h2 className="ml-3" style={{ fontSize: '32px' }}>Your Products - {cartstate.cartItems.length} Items</h2>
                     {cartItems.map(item => {
-                        return <div style={{border:'double',padding:'15px',margin:'10px'}} className="flex-container">
+                        return <div style={{padding:'15px',margin:'10px'}} className="flex-container shadow-lg bg-white rounded">
                             <div className='text-left m-10 w-100'>
                                 <h1 >{item.name} [{item.varient}]</h1>
                                 <h1 > Price: {item.quantity} * {item.prices[0][item.varient]} = {item.price} </h1>
@@ -52,6 +52,7 @@ export default function Cartscreen() {
                         </div>
                     })
                     }
+                  <a style={{margin:'10px',fontSize: '20px'}} href="/" class="btn btn-primary">Back to shopping</a>
                 </>
                 : 
                 <>
