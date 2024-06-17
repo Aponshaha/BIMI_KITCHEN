@@ -138,7 +138,7 @@ router.get("/getallorders", async(req, res) => {
         const startIndex = (Number(page) - 1) * LIMIT; 
         const total = await Order.countDocuments({});
         const orders = await Order.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
-         res.json({ data: orders, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+         res.send({ data: orders, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
      } catch (error) {
          return res.status(400).json({ message: error});
      }

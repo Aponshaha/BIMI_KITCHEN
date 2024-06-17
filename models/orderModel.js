@@ -16,6 +16,7 @@ const orderSchema= mongoose.Schema({
     address : {type: String },
     zipCode : {type: String },
     building : {type: String },
+    spicelable : {type:Number}
 },{
     timestamps : true
 })

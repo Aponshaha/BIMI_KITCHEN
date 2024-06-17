@@ -10,7 +10,7 @@ let cart_items = [];
 
 router.post('/create-checkout-session', async (req, res) => {
   // const _cart = JSON.stringify(req.body.items.items)
-  cart_items.push(JSON.stringify(req.body.items.items))
+  cart_items = [...req.body.items.items]
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
@@ -102,14 +102,14 @@ router.post('/create-checkout-session', async (req, res) => {
 // Create order function
 
 const createOrder = async (customer, data) => {
-  const Items = JSON.parse(cart_items);
-  console.log('cart item', data);
-  const products = Items.map((item) => {
-    return {
-      productId: item.id,
-      quantity: item.cartQuantity,
-    };
-  });
+  // const Items = JSON.parse(cart_items);
+  // console.log('cart item', data);
+  // const products = Items.map((item) => {
+  //   return {
+  //     productId: item.id,
+  //     quantity: item.cartQuantity,
+  //   };
+  // });
 
   const newOrder = new Order({
     customerId: data.customer,
@@ -119,37 +119,39 @@ const createOrder = async (customer, data) => {
     orderItems: cart_items,
     orderAmount: data.amount_subtotal,
     total: data.amount_total,
-    shippingAddress: data.customer_details,
+    shippingAddress: data.shipping.address,
     payment_status: data.payment_status,
     isTakeout: false,
   });
 
-  const options = {
-    to: newOrder.email,
-    from: `"Bimi Kitchen" devapon77@gmail.com`,
-    subject: "Order Placed ",
-    template: "order-details",
-    templateVars: {
-      username: newOrder.name ,
-      email: newOrder.email,
-      subtotal: newOrder.orderAmount,
-      transactionId: newOrder.paymentIntentId,
-      date: new Date(),
-      shippingAddress: newOrder.shippingAddress,
-      shippingAddress_city: newOrder.shippingAddress.city,
-      shippingAddress_country: newOrder.shippingAddress.country,
-      shippingAddress_line1: newOrder.shippingAddress.line1,
-      shippingAddress_line2: newOrder.shippingAddress.line2,
-      shippingAddress_postal_code: newOrder.shippingAddress.postal_code,
-      shippingAddress_state: newOrder.shippingAddress.state,
-      total: newOrder.total,
-      orderItems: newOrder.orderItems
-    },
-  };
+
   
   try {
     const savedOrder = await newOrder.save();
     console.log("Processed Order:", savedOrder);
+
+    const options = {
+      to: newOrder.email,
+      from: `"Bimi Kitchen" devapon77@gmail.com`,
+      subject: "Order Placed ",
+      template: "order-details",
+      templateVars: {
+        username: newOrder.name ,
+        email: newOrder.email,
+        subtotal: newOrder.orderAmount,
+        transactionId: newOrder.paymentIntentId,
+        date: new Date(),
+        shippingAddress: savedOrder.shippingAddress,
+        shippingAddress_city: savedOrder.shippingAddress.city,
+        shippingAddress_country: savedOrder.shippingAddress.country,
+        shippingAddress_line1: savedOrder.shippingAddress.line1,
+        shippingAddress_line2: savedOrder.shippingAddress.line2,
+        shippingAddress_postal_code: savedOrder.shippingAddress.postal_code,
+        shippingAddress_state: savedOrder.shippingAddress.state,
+        total: savedOrder.total,
+        orderItems: savedOrder.orderItems
+      }
+    };
     await sendEmail(options);
   } catch (err) {
     console.log(err);
@@ -206,7 +208,7 @@ router.post(
         .retrieve(data.customer)
         .then(async (customer) => {
           try {
-            createOrder(customer, data);s
+            createOrder(customer, data);
           } catch (err) {
             // console.log(typeof createOrder);
             console.log(err);

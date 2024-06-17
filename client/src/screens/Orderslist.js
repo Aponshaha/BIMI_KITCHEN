@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { deliverOrder, getAllOrders } from "../actions/orderActions";
+import { getAllOrders } from "../actions/orderActions";
 import Error from "../components/Error";
-import Filter from "../components/Filter";
 import Loading from "../components/Loading";
 import { Modal, Button, Toast, Row, Col, Table } from "react-bootstrap";
 import { Pagination } from "react-bootstrap";
@@ -20,12 +19,14 @@ export default function Orderslist() {
   const handleClose = () => setShow(false);
   const [toastShow, setToastShow] = useState(false);
   const [deliveryStatus, setDeliveryStatus] = useState(false);
+  let temp = [];
   useEffect(() => {
     dispatch(getAllOrders(pageNumber)); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
   const handleDetails = (order) => {
     setShow(true);
     setOrderDetails(order);
+    console.log('order',order);
   };
   const handleDeliver = async (orderid) => {
     const response = await axios.post("/api/orders/deliverorder", { orderid });
@@ -58,7 +59,7 @@ export default function Orderslist() {
   //   setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
   // };
   const getShippingAddress = (shippingAddress) => {
-    return shippingAddress.address?.country +',' + shippingAddress.address?.city;
+    return shippingAddress.postal_code + shippingAddress.city + ',' + shippingAddress.line1 + ',' + shippingAddress.line2 + ',' + shippingAddress.state + ',' + shippingAddress.country ;
   };
   const getDeliveryStatus = (value) => {
     if (value === 1) {
@@ -158,13 +159,6 @@ export default function Orderslist() {
                   <td>{getDeliveryType(order.isTakeout)}</td>
                   <td>
                     {getDeliveryStatus(order.isDelivered)}
-                    {/* {order.isDelivered ? (
-                      <h1 style={{color:'green'}}>Delivered</h1>
-                    ) : (
-                      <h1 style={{color:'red'}}>Not Delivered</h1>
-                       <button className="btn" style={{width:'100%',height:'70%'}} onClick={()=>{dispatch(deliverOrder(order._id))}}>Deliver</button>
-                       <button className="btn" style={{width:'100%',height:'70%'}} onClick={()=>handleDeliver(order._id)}>Deliver</button>
-                    )} */}
                   </td>
                   <td>
                     <i
@@ -211,18 +205,21 @@ export default function Orderslist() {
               <tbody>
                 <tr>
                   <td>
-                    {orderDetails?.orderItems.length > 0
-                      ? orderDetails?.orderItems.map((item) => {
-                          return (
-                            <div>
-                              <p>
-                                {item.name} [{item.varient}] * {item.quantity} ={" "}
-                                {item.price}
-                              </p>
-                            </div>
-                          );
-                        })
-                      : ""}
+                    {
+                      orderDetails?.orderItems.length > 0
+                        ? orderDetails?.orderItems.map((item) => {
+                            return (
+                              <div>
+                                <p>
+                                  {item.name} [{item.varient}] * {item.quantity} = {" "}
+                                  {item.price}
+                                </p>
+                              </div>
+                            );
+                          })
+                        : 
+                        ""
+                    }
                   </td>
                   {getTakeoutValues(orderDetails.isTakeout,orderDetails)}
                 </tr>
@@ -233,9 +230,6 @@ export default function Orderslist() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            {/* <Button variant="primary" onClick={() => handleDeliver(orderDetails?._id)}>
-     Deliver 
-   </Button> */}
           </Modal.Footer>
         </Modal>
       )}
