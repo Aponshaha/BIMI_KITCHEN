@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../actions/userActions";
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -12,7 +12,7 @@ export default function Navbar() {
   const dispatch = useDispatch()
   console.log(currentUser);
   useEffect(() => {
-    if(currentUser?.isAdmin === true){
+    if (currentUser?.isAdmin === true) {
       const interval = setInterval(() => {
         const fetchData = async () => {
           const orders = await axios.get('/api/orders/getpendingorders')
@@ -20,7 +20,7 @@ export default function Navbar() {
         }
         fetchData()
       }, 10000);
-      return () => clearInterval(interval);  
+      return () => clearInterval(interval);
     }
   }, [currentUser?.isAdmin]);
 
@@ -45,7 +45,7 @@ export default function Navbar() {
           <ul className="navbar-nav ml-auto mr-2">
             <li className="dropdown m-2">
               <a className="nav-link m-2" href="/#">
-                <LocalPhoneIcon />  03-6231-8440 {currentUser && currentUser.isAdmin === true && pendingOrder>0 && <>({pendingOrder})</>}
+                <LocalPhoneIcon />  080-3183-1925 {currentUser && currentUser.isAdmin === true && pendingOrder > 0 && <>({pendingOrder})</>}
               </a>
             </li>
             <li className="dropdown m-2">
@@ -65,15 +65,15 @@ export default function Navbar() {
                 </a>
                 {currentUser.isAdmin === true ? (
                   <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
-                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/admin"><li>ADMIN</li></a>
-                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
-                </div>
-                ):(
+                    <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
+                    <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/admin"><li>ADMIN</li></a>
+                    <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
+                  </div>
+                ) : (
                   <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
-                  <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
-                </div>
+                    <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>
+                    <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="#" onClick={() => { dispatch(logoutUser()) }}><li>Logout</li></a>
+                  </div>
                 )}
                 {/* <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                   <a style={{ color: 'black', textDecoration: 'none' }} className="dropdown-item " href="/orders">Orders</a>

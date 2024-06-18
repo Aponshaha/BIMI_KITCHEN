@@ -13,6 +13,7 @@ ul {
   color: #ff5e14;
   font-size: 30px;
   float: left;
+  padding-left: 2%;
   margin-top: 8px;
 }
 .cta-text {
@@ -157,4 +158,13 @@ ul {
 .footer-menu li a {
   font-size: 14px;
   color: #878787;
+}
+.address-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.address-list li {
+  margin-bottom: 5px;
+  color: #fff;
 }
